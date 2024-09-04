@@ -3,6 +3,13 @@
   "WorkspaceRootPath": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E2025A9E-D79F-4A20-955A-2910376D43D4}|\uC5F0\uC2B52\\\uC5F0\uC2B52.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\\uC5F0\uC2B52\\\uC5F0\uC2B52.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{E2025A9E-D79F-4A20-955A-2910376D43D4}|\uC5F0\uC2B52\\\uC5F0\uC2B52.vcxproj|solutionrelative:\uC5F0\uC2B52\\\uC5F0\uC2B52.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E2025A9E-D79F-4A20-955A-2910376D43D4}|\uC5F0\uC2B52\\\uC5F0\uC2B52.vcxproj|C:\\PROGRAM FILES\\MICROSOFT VISUAL STUDIO\\2022\\COMMUNITY\\VC\\TOOLS\\MSVC\\14.40.33807\\INCLUDE\\XSTRING||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FB4EC1AB-5B1E-431A-8F5F-3F5EDBCD678E}|Project1\\Project1.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\Project1\\\uC5F0\uC2B51.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{FB4EC1AB-5B1E-431A-8F5F-3F5EDBCD678E}|Project1\\Project1.vcxproj|solutionrelative:Project1\\\uC5F0\uC2B51.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -14,17 +21,43 @@
       "DocumentGroups": [
         {
           "DockedWidth": 45,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "xstring",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.40.33807\\include\\xstring",
+              "ViewState": "AQIAANMIAAAAAAAAAAAowOwIAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-09-04T11:38:45.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "\uC5F0\uC2B52.cpp",
+              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\\uC5F0\uC2B52\\\uC5F0\uC2B52.cpp",
+              "RelativeDocumentMoniker": "\uC5F0\uC2B52\\\uC5F0\uC2B52.cpp",
+              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\\uC5F0\uC2B52\\\uC5F0\uC2B52.cpp*",
+              "RelativeToolTip": "\uC5F0\uC2B52\\\uC5F0\uC2B52.cpp*",
+              "ViewState": "AQIAAKMAAAAAAAAAAAAAALAAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-09-04T03:36:19.165Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "\uC5F0\uC2B51.cpp",
               "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\Project1\\\uC5F0\uC2B51.cpp",
               "RelativeDocumentMoniker": "Project1\\\uC5F0\uC2B51.cpp",
               "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\\Project1\\\uC5F0\uC2B51.cpp",
               "RelativeToolTip": "Project1\\\uC5F0\uC2B51.cpp",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAAAHAAAAATAAAA",
+              "ViewState": "AQIAAHAAAAAAAAAAAAAAAKMAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-09-04T00:38:58.934Z",
               "EditorCaption": ""
