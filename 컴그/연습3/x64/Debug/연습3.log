@@ -1,2 +1,4 @@
-﻿  연습.c
+﻿  연습3.cpp
+C:\Users\somin\OneDrive\2-2-computer-g\컴그\연습3\연습3.cpp(46,34): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그\연습3\연습3.cpp(74,32): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   연습3.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그\x64\Debug\연습3.exe
