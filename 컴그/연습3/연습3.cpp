@@ -125,10 +125,28 @@ int main() {
 		}
 		else if (cmd == "a") {
 			if (a % 2 == 0) {
+				int num = 0;
 				for (int i = 0; i < 20; ++i) {
 					temp[i] = Nodes[i];
 				}
-				sort(Nodes, Nodes + 20, compareNodes);
+				vector<Node> validNodes;
+
+				for (int i = 0; i < 20; ++i) {
+					if (Nodes[i].valid == 1) {
+						validNodes.push_back(Nodes[i]);
+					}
+				}
+
+				sort(validNodes.begin(), validNodes.end(), compareNodes);
+
+				int idx = 0;
+				for (int i = 0; i < validNodes.size(); ++i) {
+					Nodes[idx++] = validNodes[i];
+				}
+
+				for (int i = idx; i < 20; ++i) {
+					Nodes[i] = Node(-1, 0, 0, 0);
+				}
 				++a;
 			}
 			else {
