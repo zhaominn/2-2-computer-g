@@ -8,6 +8,10 @@
 #include <thread>
 #include <chrono>
 
+#include <fstream>
+#include <algorithm>
+#include <windows.h>
+
 
 using namespace std;
 
@@ -37,21 +41,33 @@ void SettingBoard(Node board[5][5]) {
 }
 
 void PrintBoard(Node board[5][5]) {
+	const WORD highlightColor1 = FOREGROUND_RED | FOREGROUND_INTENSITY;  // 하이라이트 색상
+	const WORD defaultColor = 7;  // 기본 색상
+
+
 	cout << "   a  b  c  d  e\n";
 	for (int i = 0; i < 5; ++i) {
 		cout << i + 1;
 		for (int j = 0; j < 5; ++j) {
-			if (board[i][j].valid == -1)
+			if (board[i][j].valid == -1) {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defaultColor);
 				cout << "  *";
-			else
+			}
+			else {
+				SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), highlightColor1);
 				cout << "  " << board[i][j].shape;
-
+			}
 		}
 		cout << '\n';
 	}
 }
 
 int main() {
+	const WORD highlightColor1 = FOREGROUND_RED | FOREGROUND_INTENSITY;  // 하이라이트 색상
+	const WORD highlightColor2 = FOREGROUND_BLUE | FOREGROUND_INTENSITY;  // 하이라이트 색상
+	const WORD defaultColor = 7;  // 기본 색상
+
+
 	Node board[5][5];
 
 	SettingBoard(board);
@@ -72,14 +88,37 @@ int main() {
 
 			if ((board[word1[1] - '1'][word1[0] - 'a'].shape == board[word2[1] - '1'][word2[0] - 'a'].shape)
 				|| board[word1[1] - '1'][word1[0] - 'a'].shape == "@" || board[word2[1] - '1'][word2[0] - 'a'].shape == "@") {
+
 				board[word1[1] - '1'][word1[0] - 'a'].valid = 1;
 				board[word2[1] - '1'][word2[0] - 'a'].valid = 1;
 			}
 			else {
 				board[word1[1] - '1'][word1[0] - 'a'].valid = 1;
 				board[word2[1] - '1'][word2[0] - 'a'].valid = 1;
-				PrintBoard(board);
-				cout << "\n다른 값이네요~ 다시 해보세요~~\n\n";
+				
+
+				cout << "   a  b  c  d  e\n";
+				for (int i = 0; i < 5; ++i) {
+					cout << i + 1;
+					for (int j = 0; j < 5; ++j) {
+						if (board[i][j].valid == -1) {
+							SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defaultColor);
+							cout << "  *";
+						}
+						else if (i== word1[1] - '1'&&j== word1[0] - 'a') {
+							SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), highlightColor2);
+							cout << "  " << board[i][j].shape;
+						}
+						else {
+							SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), highlightColor1);
+							cout << "  " << board[i][j].shape;
+						}
+					}
+					cout << '\n';
+				}
+
+
+				cout << "\n다른 값이네요~ 다시 해보세요~~~~\n\n";
 				this_thread::sleep_for(3s);
 				board[word1[1] - '1'][word1[0] - 'a'].valid = -1;
 				board[word2[1] - '1'][word2[0] - 'a'].valid = -1;
