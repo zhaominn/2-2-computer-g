@@ -16,6 +16,9 @@ void SettingBoard(vector<Rectangle1>& rectangles, vector<Rectangle1>& rectangles
 	if (rectangles.size() > 0) {
 		rectangles.clear();
 	}
+	if (rectangless.size() > 0) {
+		rectangless.clear();
+	}
 
 	for (int i = 0; i < 30; ++i) {
 		for (int j = 0; j < 30; ++j) {

@@ -40,8 +40,8 @@ void SetBoard(board(&boards)[30][30]) {
 
 void PrintBoard(const board boards[30][30]) {
     system("cls");
-    const WORD highlightColor1 = FOREGROUND_RED | FOREGROUND_INTENSITY;  
-    const WORD defaultColor = 7;  
+    const WORD highlightColor1 = FOREGROUND_RED | FOREGROUND_INTENSITY;
+    const WORD defaultColor = 7;
 
     for (int i = 0; i < 30; ++i) {
         for (int j = 0; j < 30; ++j) {
@@ -149,10 +149,10 @@ int main() {
             objectPosition = { 0, 0 }; // 객체를 (0, 0)으로 이동
             boards[objectPosition.x][objectPosition.y].valid = "*"; // 객체의 위치에 '*' 표시
             if (MakeRoute(boards, 0, 0, path, visited, up, right, down, left, lastDirection, directionCount)) {
-               // cout << "경로가 성공적으로 생성되었습니다!\n";
+                // cout << "경로가 성공적으로 생성되었습니다!\n";
             }
             else {
-               cout << "경로 생성에 실패했습니다.\n";
+                cout << "경로 생성에 실패했습니다.\n";
             }
             PrintBoard(boards);
             break;
