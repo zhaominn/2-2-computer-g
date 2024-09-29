@@ -6,6 +6,8 @@ GLvoid drawScene(GLvoid);
 GLvoid Reshape(int w, int h);
 GLvoid Keyboard(unsigned char key, int x, int y);
 void TimerFunction(int value);
+void Mouse(int button, int state, int x, int y);
+void Motion(int x, int y);
 
 #include <random>
 #include <cmath>
@@ -33,6 +35,8 @@ rectangle Rectangles[10]{
 	{0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f}
 };
 
+bool isDrag = false; //마우스 드래그 중인지 확인
+
 void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
 	//--- 윈도우 생성하기
@@ -57,6 +61,8 @@ void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 	glutReshapeFunc(Reshape); //--- 다시 그리기 콜백함수 지정
 	glutKeyboardFunc(Keyboard); //--- 키보드 입력 콜백함수 지정
 	glutTimerFunc(100, TimerFunction, 1); // 타이머 함수 설정
+	glutMouseFunc(Mouse);
+	glutMotionFunc(Motion);
 	glutMainLoop(); //--- 이벤트 처리 시작
 
 }
@@ -102,6 +108,23 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 		break;
 	}
 	glutPostRedisplay(); //--- 배경색이 바뀔 때마다 출력 콜백 함수를 호출하여 화면을 refresh 한다
+}
+
+void Mouse(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON) {
+		if (state == GLUT_DOWN) {
+			// 마우스 클릭 시작
+			isDrag = true;
+		}
+		else if (state == GLUT_UP && isDrag) {
+			// 마우스를 떼었을 때 좌표 저장
+			isDrag = false;
+		}
+	}
+}
+
+void Motion(int x, int y) {
+	//마우스가움직이는중일때
 }
 
 void TimerFunction(int value)
