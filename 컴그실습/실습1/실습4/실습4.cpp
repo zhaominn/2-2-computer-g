@@ -8,6 +8,20 @@ GLvoid Keyboard(unsigned char key, int x, int y);
 void TimerFunction(int value);
 
 
+// 스크린 좌표를 OpenGL 좌표로 변환하는 함수
+void ScreenToOpenGL(int x, int y, GLfloat& X, GLfloat& Y) {
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	int windowWidth = viewport[2];
+	int windowHeight = viewport[3];
+
+	// X 좌표 변환: 0 ~ windowWidth -> -1.0 ~ 1.0
+	X = (static_cast<float>(x) / static_cast<float>(windowWidth)) * 2.0f - 1.0f;
+
+	// Y 좌표 변환: 0 ~ windowHeight -> 1.0 ~ -1.0 (OpenGL의 Y축은 위쪽이 +1)
+	Y = 1.0f - (static_cast<float>(y) / static_cast<float>(windowHeight)) * 2.0f;
+}
+
 void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
 	//--- 윈도우 생성하기
