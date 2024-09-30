@@ -36,6 +36,21 @@ rectangle Rectangles[10]{
 };
 
 bool isDrag = false; //마우스 드래그 중인지 확인
+int now = -1; //현재 클릭한 사각형 저장
+
+// 스크린 좌표를 OpenGL 좌표로 변환하는 함수
+void ScreenToOpenGL(int x, int y, GLfloat& X, GLfloat& Y) {
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	int windowWidth = viewport[2];
+	int windowHeight = viewport[3];
+
+	// X 좌표 변환: 0 ~ windowWidth -> -1.0 ~ 1.0
+	X = (static_cast<float>(x) / static_cast<float>(windowWidth)) * 2.0f - 1.0f;
+
+	// Y 좌표 변환: 0 ~ windowHeight -> 1.0 ~ -1.0 (OpenGL의 Y축은 위쪽이 +1)
+	Y = 1.0f - (static_cast<float>(y) / static_cast<float>(windowHeight)) * 2.0f;
+}
 
 void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
@@ -77,7 +92,7 @@ GLvoid drawScene() //--- 콜백 함수: 그리기 콜백 함수
 
 	for (int i = 0; i < 10; ++i) {
 		glColor3f(Rectangles[i].r, Rectangles[i].g, Rectangles[i].b);
-		glRectf(Rectangles[i].startX,Rectangles[i].startY,Rectangles[i].endX,Rectangles[i].endY);
+		glRectf(Rectangles[i].startX, Rectangles[i].startY, Rectangles[i].endX, Rectangles[i].endY);
 	}
 
 	//-------------------
@@ -103,7 +118,7 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 			GLfloat r = (rand() % 10) / 10.0f;
 			GLfloat g = (rand() % 10) / 10.0f;
 			GLfloat b = (rand() % 10) / 10.0f;
-			Rectangles[i] = {x,y,x+0.1f,y+0.1f,r,g,b };
+			Rectangles[i] = { x,y,x + 0.1f,y + 0.1f,r,g,b };
 		}
 		break;
 	}
@@ -112,24 +127,60 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 
 void Mouse(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON) {
+
+		GLfloat X, Y;
+		ScreenToOpenGL(x, y, X, Y); // 좌표 변환
+
 		if (state == GLUT_DOWN) {
 			// 마우스 클릭 시작
 			isDrag = true;
+			for (int i = 0; i < 10; ++i) {
+				if ((Rectangles[i].startX < X) && (Rectangles[i].endX > X)
+					&& (Rectangles[i].startY < Y) && (Rectangles[i].endY > Y)) {
+					now = i;
+					break;
+				}
+			}
 		}
 		else if (state == GLUT_UP && isDrag) {
 			// 마우스를 떼었을 때 좌표 저장
 			isDrag = false;
+			for (int i = 0; i < 10; ++i) {
+				if (i != now) {
+					if ((Rectangles[i].startX > X) && (Rectangles[i].endX < X)
+						&& (Rectangles[i].startY > Y) && (Rectangles[i].endY < Y)) {
+
+					}
+				}
+			}
+
+
+			now = -1;// now 초기화
 		}
 	}
+	glutPostRedisplay();
 }
 
 void Motion(int x, int y) {
 	//마우스가움직이는중일때
+	if (isDrag) {
+		GLfloat X, Y;
+		ScreenToOpenGL(x, y, X, Y); // 좌표 변환
+
+		GLfloat width = (Rectangles[now].endX - Rectangles[now].startX) / 2.0f;
+		GLfloat height = (Rectangles[now].endY - Rectangles[now].startY) / 2.0f;
+
+		Rectangles[now].startX = X - width;
+		Rectangles[now].endX = X + width;
+		Rectangles[now].startY = Y - height;
+		Rectangles[now].endY = Y + height;
+	}
+
+	glutPostRedisplay();
 }
 
 void TimerFunction(int value)
 {
-
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);
 }
