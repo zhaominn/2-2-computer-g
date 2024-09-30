@@ -11,6 +11,7 @@ void Motion(int x, int y);
 
 #include <random>
 #include <cmath>
+#include <algorithm>
 
 struct rectangle {
 	GLfloat startX;
@@ -147,9 +148,21 @@ void Mouse(int button, int state, int x, int y) {
 			isDrag = false;
 			for (int i = 0; i < 10; ++i) {
 				if (i != now) {
-					if ((Rectangles[i].startX > X) && (Rectangles[i].endX < X)
-						&& (Rectangles[i].startY > Y) && (Rectangles[i].endY < Y)) {
+					//if ((Rectangles[i].startX < Rectangles[now].startX) && (Rectangles[i].endX > Rectangles[now].endX)
+					//	&& (Rectangles[i].startY < Rectangles[now].startY) && (Rectangles[i].endY > Rectangles[now].endY)) 
+					if ((Rectangles[i].startX < Rectangles[now].endX) && (Rectangles[i].startY < Rectangles[now].endY) && (Rectangles[i].endX > Rectangles[now].startX) &&
+						(Rectangles[i].endY > Rectangles[now].startY)) {
 
+						Rectangles[i].startX = std::min(Rectangles[i].startX, Rectangles[now].startX);
+						Rectangles[i].endX = std::max(Rectangles[i].endX, Rectangles[now].endX);
+						Rectangles[i].startY = std::min(Rectangles[i].startY, Rectangles[now].startY);
+						Rectangles[i].endY = std::max(Rectangles[i].endY, Rectangles[now].endY);
+
+						Rectangles[i].r = (rand() % 10) / 10.0f;
+						Rectangles[i].g = (rand() % 10) / 10.0f;
+						Rectangles[i].b = (rand() % 10) / 10.0f;
+
+						Rectangles[now] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f };
 					}
 				}
 			}
