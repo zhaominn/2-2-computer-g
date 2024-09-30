@@ -22,6 +22,20 @@ colorSet Rectangles[5] = {
 	{1.0, 0.8, 0.8,0},
 	{1.0, 0.5, 0.5, 1.0} };
 
+// 스크린 좌표를 OpenGL 좌표로 변환하는 함수
+void ScreenToOpenGL(int x, int y, GLfloat& X, GLfloat& Y) {
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	int windowWidth = viewport[2];
+	int windowHeight = viewport[3];
+
+	// X 좌표 변환: 0 ~ windowWidth -> -1.0 ~ 1.0
+	X = (static_cast<float>(x) / static_cast<float>(windowWidth)) * 2.0f - 1.0f;
+
+	// Y 좌표 변환: 0 ~ windowHeight -> 1.0 ~ -1.0 (OpenGL의 Y축은 위쪽이 +1)
+	Y = 1.0f - (static_cast<float>(y) / static_cast<float>(windowHeight)) * 2.0f;
+}
+
 void main(int argc, char** argv) //--- 윈도우 출력하고 콜백함수 설정
 {
 	//--- 윈도우 생성하기
@@ -87,15 +101,7 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 void Mouse(int button, int state, int x, int y)
 {
 	GLfloat X, Y;
-	if (x <= 400)
-		X = -(x / 400.0f);
-	else
-		X = -((400.0f - x) / 400.0f);
-
-	if (y <= 300)
-		Y = y / 300.0f;
-	else
-		Y = (300.0f - y) / 300.0f;
+	ScreenToOpenGL(x, y, X, Y); // 좌표 변환
 
 	if (button == GLUT_LEFT_BUTTON) { //색상 바꾸기
 		if ((0.0f - (Rectangles[0].size / 10.0f) > X) && (-1.0f + (Rectangles[0].size / 10.0f) < X) //0
