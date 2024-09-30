@@ -1,0 +1,4 @@
+﻿  실습5.cpp
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습5\실습5.cpp(25,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습5\실습5.cpp(71,2): warning C4060: switch문에 'case' 또는 'default' 레이블이 없습니다.
+  실습5.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습5.exe
