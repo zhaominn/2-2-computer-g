@@ -162,32 +162,32 @@ void TimerFunction(int value)
 		case -1: break;
 		case 0: break;
 		case 2:
-			Rectangles[i].X1 -= 0.02f;
-			Rectangles[i].Y1 += 0.02f;
-			Rectangles[i].X2 += 0.02f;
-			Rectangles[i].Y2 += 0.02f;
-			Rectangles[i].X3 -= 0.02f;
-			Rectangles[i].Y3 -= 0.02f;
-			Rectangles[i].X4 += 0.02f;
-			Rectangles[i].Y4 -= 0.02f;
+			Rectangles[i].X1 -= 0.03f;
+			Rectangles[i].Y1 += 0.03f;
+			Rectangles[i].X2 += 0.03f;
+			Rectangles[i].Y2 += 0.03f;
+			Rectangles[i].X3 -= 0.03f;
+			Rectangles[i].Y3 -= 0.03f;
+			Rectangles[i].X4 += 0.03f;
+			Rectangles[i].Y4 -= 0.03f;
 			Rectangles[i].size -= 0.01f;
 			if (Rectangles[i].size <= 0.01f)
 				Rectangles[i].mode = -1;
 			break;
 		case 3:
-			Rectangles[i].X1 -= 0.02f;
-			Rectangles[i].X2 -= 0.02f;
-			Rectangles[i].X3 -= 0.02f;
-			Rectangles[i].X4 -= 0.02f;
+			Rectangles[i].X1 -= 0.03f;
+			Rectangles[i].X2 -= 0.03f;
+			Rectangles[i].X3 -= 0.03f;
+			Rectangles[i].X4 -= 0.03f;
 			Rectangles[i].size -= 0.01f;
 			if (Rectangles[i].size <= 0.01f)
 				Rectangles[i].mode = -1;
 			break;
 		default:
-			Rectangles[i].Y1 += 0.02f;
-			Rectangles[i].X2 += 0.02f;
-			Rectangles[i].X3 -= 0.02f;
-			Rectangles[i].Y4 -= 0.02f;
+			Rectangles[i].Y1 += 0.03f;
+			Rectangles[i].X2 += 0.03f;
+			Rectangles[i].X3 -= 0.03f;
+			Rectangles[i].Y4 -= 0.03f;
 			Rectangles[i].size -= 0.01f;
 			if (Rectangles[i].size <= 0.01f)
 				Rectangles[i].mode = -1;
