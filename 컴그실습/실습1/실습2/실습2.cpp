@@ -110,20 +110,20 @@ void Mouse(int button, int state, int x, int y)
 			Rectangles[0].g = (rand() % 10) / 10.0f;
 			Rectangles[0].b = (rand() % 10) / 10.0f;
 		}
-		else if ((1.0f + (Rectangles[1].size / 10.0f) > X) && (0.0f - (Rectangles[1].size / 10.0f) < X) // 1
+		else if ((1.0f - (Rectangles[1].size / 10.0f) > X) && (0.0f + (Rectangles[1].size / 10.0f) < X) // 1
 			&& (1.0f - (Rectangles[1].size / 10.0f) > Y) && (0.0f + (Rectangles[1].size / 10.0f) < Y)) {
 			Rectangles[1].r = (rand() % 10) / 10.0f;
 			Rectangles[1].g = (rand() % 10) / 10.0f;
 			Rectangles[1].b = (rand() % 10) / 10.0f;
 		}
-		else if ((0.0f + (Rectangles[2].size / 10.0f) > X) && (-1.0f - (Rectangles[2].size / 10.0f) < X) //2
-			&& (-1.0f - (Rectangles[2].size / 10.0f) < Y) && (0.0f + (Rectangles[2].size / 10.0f) > Y)) {
+		else if ((0.0f - (Rectangles[2].size / 10.0f) > X) && (-1.0f + (Rectangles[2].size / 10.0f) < X) //2
+			&& (-1.0f + (Rectangles[2].size / 10.0f) < Y) && (0.0f - (Rectangles[2].size / 10.0f) > Y)) {
 			Rectangles[2].r = (rand() % 10) / 10.0f;
 			Rectangles[2].g = (rand() % 10) / 10.0f;
 			Rectangles[2].b = (rand() % 10) / 10.0f;
 		}
-		else if ((1.0f + (Rectangles[3].size / 10.0f) > X) && (0.0f - (Rectangles[3].size / 10.0f) < X) //3
-			&& (-1.0f - (Rectangles[3].size / 10.0f) < Y) && (0.0f + (Rectangles[3].size / 10.0f) > Y)) {
+		else if ((1.0f - (Rectangles[3].size / 10.0f) > X) && (0.0f + (Rectangles[3].size / 10.0f) < X) //3
+			&& (-1.0f + (Rectangles[3].size / 10.0f) < Y) && (0.0f - (Rectangles[3].size / 10.0f) > Y)) {
 			Rectangles[3].r = (rand() % 10) / 10.0f;
 			Rectangles[3].g = (rand() % 10) / 10.0f;
 			Rectangles[3].b = (rand() % 10) / 10.0f;

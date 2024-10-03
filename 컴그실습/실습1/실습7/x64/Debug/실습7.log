@@ -1,0 +1,63 @@
+﻿  실습7.cpp
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(143,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(143,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(143,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(143,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(143,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(153,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(153,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(153,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(153,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(153,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(172,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(172,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(172,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(172,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(172,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(173,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(173,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(173,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(173,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(173,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(179,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(179,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(179,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(179,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(179,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(180,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(180,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(180,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(180,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(180,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(187,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(187,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(187,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(187,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(187,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(197,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(197,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(197,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(197,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(197,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(198,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(198,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(198,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(198,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(198,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(204,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(204,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(204,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(204,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(204,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(211,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(211,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(211,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(211,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(211,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(212,26): warning C4244: '인수': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(212,26): warning C4244:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(212,26): warning C4244:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(212,26): warning C4244:             _Ty=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(212,26): warning C4244:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습7\실습7.cpp(298,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  실습7.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습7.exe
