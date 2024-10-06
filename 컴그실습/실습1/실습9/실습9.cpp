@@ -326,7 +326,7 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 	case '4':
 		mode = 4;
 		for (int i = 0; i < 4; ++i) {
-			triangle[i] = { 0.01f,0.01f,0-i,0 };
+			triangle[i] = { 0.01f,0.01f,0-(i*20),0 };
 			vertexPosition[4 + 3 * i] = { 0.0f, 0.0f + 0.1f, 0.0f };
 			vertexPosition[5 + 3 * i] = { 0.0f - 0.1f, 0.0f - 0.1f, 0.0f };
 			vertexPosition[6 + 3 * i] = { 0.0f + 0.1f, 0.0f - 0.1f, 0.0f };
@@ -494,27 +494,39 @@ void TimerFunction(int value)
 		for (int i = 0; i < 4; ++i) {
 			if(triangle[i].moveNum>0) {
 				// 삼각형의 중심점 좌표 (이동 궤적을 적용)
-				GLfloat x = (triangle[i].moveNum / 500.0f) * cos(triangle[i].moveNum * pi / 180.0f);
-				GLfloat y = (triangle[i].moveNum / 500.0f) * sin(triangle[i].moveNum * pi / 180.0f);
-				triangle[i].moveNum += 5; // 삼각형이 이동할 때의 각도 증가
+				GLfloat x = (triangle[i].moveNum / 500.0f) * cos(triangle[i].moveNum * pi / 180);
+				GLfloat y = (triangle[i].moveNum / 500.0f) * sin(triangle[i].moveNum * pi / 180);
 
-				glm::vec3 center = glm::vec3(x, y, 0.0f); // 중심점 업데이트
 
-				// 회전 각도 계산 (움직이는 각도만큼 회전)
-				float angle = triangle[i].moveNum * pi / 180.0f; // 각도 값을 라디안으로 변환
+				GLfloat angle = triangle[i].moveNum * pi / 180.0f; // 회전 각도
 
-				// 회전 변환 행렬 생성 (Z축을 기준으로 회전)
-				glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), angle, glm::vec3(0.0f, 0.0f, 1.0f));
+				// 회전 행렬 적용
+				GLfloat cosTheta = cos(angle);
+				GLfloat sinTheta = sin(angle);
 
-				// 삼각형의 각 정점에 회전 변환 적용 (중심점을 기준으로)
-				glm::vec4 p1 = glm::vec4(glm::vec3(0.0f, 0.1f, 0.0f) - center, 1.0f); // 중심점 기준으로 이동
-				glm::vec4 p2 = glm::vec4(glm::vec3(-0.1f, -0.1f, 0.0f) - center, 1.0f);
-				glm::vec4 p3 = glm::vec4(glm::vec3(0.1f, -0.1f, 0.0f) - center, 1.0f);
+				// 정점 1 (위쪽)
+				GLfloat v1x = 0.0f; // 정점의 상대 위치
+				GLfloat v1y = 0.1f;
+				GLfloat newV1x = v1x * cosTheta - v1y * sinTheta; // 회전 적용
+				GLfloat newV1y = v1x * sinTheta + v1y * cosTheta;
 
-				// 회전 변환 후 다시 중심점 위치로 이동
-				vertexPosition[4 + 3 * i] = glm::vec3(rotationMatrix * p1) + center;
-				vertexPosition[5 + 3 * i] = glm::vec3(rotationMatrix * p2) + center;
-				vertexPosition[6 + 3 * i] = glm::vec3(rotationMatrix * p3) + center;
+				// 정점 2 (왼쪽 아래)
+				GLfloat v2x = -0.1f;
+				GLfloat v2y = -0.1f;
+				GLfloat newV2x = v2x * cosTheta - v2y * sinTheta;
+				GLfloat newV2y = v2x * sinTheta + v2y * cosTheta;
+
+				// 정점 3 (오른쪽 아래)
+				GLfloat v3x = 0.1f;
+				GLfloat v3y = -0.1f;
+				GLfloat newV3x = v3x * cosTheta - v3y * sinTheta;
+				GLfloat newV3y = v3x * sinTheta + v3y * cosTheta;
+
+				// 회전된 좌표로 위치 설정
+				vertexPosition[4 + 3 * i] = { x + newV1x, y + newV1y, 0.0f };
+				vertexPosition[5 + 3 * i] = { x + newV2x, y + newV2y, 0.0f };
+				vertexPosition[6 + 3 * i] = { x + newV3x, y + newV3y, 0.0f };
+				++triangle[i].moveNum;
 			}
 			++triangle[i].moveNum;
 		}
