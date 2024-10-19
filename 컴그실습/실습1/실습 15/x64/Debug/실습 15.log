@@ -1,0 +1,6 @@
+﻿  실습15.cpp
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 15\실습15.cpp(109,9): warning C4101: 'errorLog' :참조되지 않은 지역 변수입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 15\실습15.cpp(121,9): warning C4101: 'errorLog' :참조되지 않은 지역 변수입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 15\실습15.cpp(127,9): warning C4101: 'errorLog' :참조되지 않은 지역 변수입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 15\실습15.cpp(789,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  실습 15.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습 15.exe

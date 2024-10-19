@@ -1,0 +1,7 @@
+﻿  실습16.cpp
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 16\실습16.cpp(98,9): warning C4101: 'errorLog' :참조되지 않은 지역 변수입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 16\실습16.cpp(110,9): warning C4101: 'errorLog' :참조되지 않은 지역 변수입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 16\실습16.cpp(116,9): warning C4101: 'errorLog' :참조되지 않은 지역 변수입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 16\실습16.cpp(618,2): warning C4060: switch문에 'case' 또는 'default' 레이블이 없습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 16\실습16.cpp(623,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  실습 16.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습 16.exe
