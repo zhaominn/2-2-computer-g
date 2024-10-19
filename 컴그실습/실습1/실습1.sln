@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "실습13", "실습13\실습
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "실습 13(obj)", "실습 13(obj)\실습 13(obj).vcxproj", "{A4F3DCDD-5798-439E-A657-55FFEF2E58BC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "실습 14", "실습 14\실습 14.vcxproj", "{A436A845-E8A7-4362-829B-A2E40538F496}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -151,6 +153,14 @@ Global
 		{A4F3DCDD-5798-439E-A657-55FFEF2E58BC}.Release|x64.Build.0 = Release|x64
 		{A4F3DCDD-5798-439E-A657-55FFEF2E58BC}.Release|x86.ActiveCfg = Release|Win32
 		{A4F3DCDD-5798-439E-A657-55FFEF2E58BC}.Release|x86.Build.0 = Release|Win32
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Debug|x64.ActiveCfg = Debug|x64
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Debug|x64.Build.0 = Debug|x64
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Debug|x86.ActiveCfg = Debug|Win32
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Debug|x86.Build.0 = Debug|Win32
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Release|x64.ActiveCfg = Release|x64
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Release|x64.Build.0 = Release|x64
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Release|x86.ActiveCfg = Release|Win32
+		{A436A845-E8A7-4362-829B-A2E40538F496}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
