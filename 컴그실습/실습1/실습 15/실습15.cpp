@@ -11,7 +11,6 @@
 #include <glm/glm/ext.hpp>
 #include <glm/glm/gtc/matrix_transform.hpp>
 //----------------------------------
-GLfloat transX = 0.0f; GLfloat transY = 0.0f;
 GLfloat Xangle = 30.0f; GLfloat Yangle = 30.0f;
 int shape1_num = 0; int shape2_num = 3;
 
@@ -782,6 +781,7 @@ GLvoid Keyboard(unsigned char key, int x, int y) {
 		revolution = false;
 		break;
 	}
+
 
 	glutPostRedisplay();  // 화면을 갱신합니다.
 }

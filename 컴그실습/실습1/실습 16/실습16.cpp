@@ -11,19 +11,47 @@
 #include <glm/glm/ext.hpp>
 #include <glm/glm/gtc/matrix_transform.hpp>
 //----------------------------------
-int shape_num = 0;
+GLfloat Xangle = 30.0f; GLfloat Yangle = 30.0f;
+int shape1_num = 0; int shape2_num = 3;
 
+GLfloat rotation1_X = 0.0f; GLfloat rotation_dx = 2.0f;
+GLfloat rotation1_y = 0.0f; GLfloat rotation_dy = 2.0f;
+GLfloat rotation2_X = 0.0f;
+GLfloat rotation2_y = 0.0f;
+GLfloat revolution_y = 0.0f;
+GLfloat revolution_x = 0.0f;
+GLfloat revolution_x1 = 0.0f;
+bool Rotation_X = false;
+bool Rotation_Y = false;
+int rotationNum = 3;
+bool revolution = false; GLfloat revolutuion_dy = 1.0f;
+
+
+GLfloat scale_aNum = 1.0f;
+GLfloat scale_oNum = 1.0f;
+GLfloat scale_d = 0.01f;
+int moveMode = -1;
+int transMode = -1;
+GLfloat Tx = 0.5f;
+GLfloat Tx1 = 0.0f;
+GLfloat Tx2 = 0.0f;
+GLfloat Tdx = 0.01f;
+GLfloat Ty1 = 0.0f;
+GLfloat Ty2 = 0.0f;
+GLfloat Tz1 = 0.0f;
+GLfloat Tz2 = 0.0f;
+GLfloat dz = 0.01f;
+GLfloat dy = 0.01f;
+GLfloat dx = 0.01f;
 //----------------------------------
 #define MAX_LINE_LENGTH 1024
 
 typedef struct {
 	float x, y, z;
 } Vertex;
-
 typedef struct {
 	unsigned int v1, v2, v3;
 } Face;
-
 typedef struct {
 	std::vector<Vertex> vertices;
 	std::vector<Face> faces;
@@ -141,13 +169,16 @@ Model cubeModel, pyramidModel, cylinderModel, coneModel;
 // 정육면체의 버퍼 초기화 함수
 void InitBufferForCube() {
 	// 인덱스 데이터
-	std::vector<unsigned int> indices;
 
-	for (const auto& face : cubeModel.faces) {
-		indices.push_back(face.v1);
-		indices.push_back(face.v2);
-		indices.push_back(face.v3);
-	}
+	std::vector<unsigned int> indices = {
+		0, 1, 2, 3,  // 앞면
+		4, 5, 6, 7,  // 뒷면
+		0, 3, 7, 4,  // 왼쪽면
+		1, 2, 6, 5,  // 오른쪽면
+		3, 2, 6, 7,  // 위쪽면
+		0, 4, 5, 1   // 아래쪽면
+	};
+
 
 	// 색상 데이터 설정
 	std::vector<glm::vec3> vertexColor = {
@@ -157,6 +188,7 @@ void InitBufferForCube() {
 		glm::vec3(1.0f, 0.6f, 0.6f), glm::vec3(1.0f, 0.6f, 0.6f), glm::vec3(1.0f, 0.6f, 0.6f), glm::vec3(1.0f, 0.6f, 0.6f),
 		glm::vec3(1.0f, 0.8f, 0.8f), glm::vec3(1.0f, 0.8f, 0.8f), glm::vec3(1.0f, 0.8f, 0.8f), glm::vec3(1.0f, 0.8f, 0.8f),
 		glm::vec3(1.0f, 1.0f, 0.8f), glm::vec3(1.0f, 1.0f, 0.8f), glm::vec3(1.0f, 1.0f, 0.8f), glm::vec3(1.0f, 1.0f, 0.8f),
+
 	};
 
 	// VAO 설정
@@ -472,7 +504,6 @@ void InitBufferForCone() {
 	glBindVertexArray(0);
 }
 
-
 GLuint axisVAO, axisVBO_position, axisVBO_color;
 
 void InitBufferForAxes() {
@@ -521,6 +552,8 @@ void InitBufferForAxes() {
 	glBindVertexArray(0);
 }
 
+GLUquadric* quadric;
+
 void InitOpenGL() {
 	// GLEW 초기화
 	glewExperimental = GL_TRUE;
@@ -531,6 +564,9 @@ void InitOpenGL() {
 
 	// 양면을 그릴 수 있도록 Cull Face 비활성화
 	glDisable(GL_CULL_FACE);
+
+	// 배경색을 흰색으로 설정 (R, G, B, A: 각각 1.0f로 설정하면 흰색)
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // 흰색 배경
 
 	// 셰이더 컴파일
 	make_vertexShaders();
@@ -557,6 +593,26 @@ void drawAxes() {
 	glBindVertexArray(0);
 }
 
+void drawConeWithGLU() {
+
+	// GLU 원뿔 그리기
+	quadric = gluNewQuadric();
+	glPushMatrix();
+	gluQuadricDrawStyle(quadric, GLU_LINE);
+	gluCylinder(quadric, 0.1f, 0.0f, 0.2f, 20, 20); // 밑면 반지름 0.2, 윗면 반지름 0.0 (원뿔), 높이 0.5
+	glPopMatrix();
+}
+
+void drawCylinderWithGLU() {
+
+	// GLU 원기둥 그리기
+	quadric = gluNewQuadric();
+	glPushMatrix();
+	gluQuadricDrawStyle(quadric, GLU_LINE);
+	gluCylinder(quadric, 0.1f, 0.2f, 0.2f, 20, 20); // 밑면 반지름 0.2, 윗면 반지름 0.2, 높이 0.5
+	glPopMatrix();
+}
+
 GLvoid drawScene() {
 	// 컬러 버퍼와 깊이 버퍼를 지웁니다
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -574,33 +630,96 @@ GLvoid drawScene() {
 	// 축 그리기
 	drawAxes();
 
-	// 이동 변환 적용 (먼저 이동)
-	modelMatrix = glm::translate(modelMatrix, glm::vec3(0.5f, 0.0f, 0.0f)); // X축 이동
+	// 이동 전
+	{
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(revolution_x), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(revolution_y), glm::vec3(0.0f, 1.0f, 0.0f)); // Y축 회전
 
-	
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(revolution_x1), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(scale_oNum, scale_oNum, scale_oNum));
+	}
+
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(Tx, Ty1, Tz1)); // X축 이동
+
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(Tx1, 0.0f, 0.0f)); // X축 이동
+	//이동 후
+	{
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation1_X), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation1_y), glm::vec3(0.0f, 1.0f, 0.0f)); // Y축 회전
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(scale_aNum, scale_aNum, scale_aNum));
+	}
+
 	// 변환 행렬을 셰이더로 전달
 	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-
-	
-	switch (shape_num) {
+	// 축 그리기
+	drawAxes();
+	// 도형 1
+	switch (shape1_num) {
 	case 0: // 정육면체
 		for (int i = 0; i < 6; i++) {
 			glBindVertexArray(cubeVAO);
 			glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * 4 * i));
 		}
 		break;
-	case 1: // 피라미드a
+	case 1: // 피라미드
 		glBindVertexArray(pyramidVAO);
 		glDrawElements(GL_TRIANGLES, 13, GL_UNSIGNED_INT, 0);
 		break;
-	case 2: // 원기둥
-		glBindVertexArray(cylinderVAO);
-		glDrawElements(GL_TRIANGLES, 60, GL_UNSIGNED_INT, 0);
+	case 2: // GLU 원기둥
+		drawCylinderWithGLU();
 		break;
-	case 3: // 원뿔
-		glBindVertexArray(coneVAO);
-		glDrawElements(GL_TRIANGLES, 30, GL_UNSIGNED_INT, 0);
+	case 3: // GLU 원뿔
+		drawConeWithGLU();
+		break;
+	}
+
+	modelMatrix = glm::mat4(1.0f);
+	//이동 전
+	{
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(30.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Y축 회전
+
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(revolution_x), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(180.0f + revolution_y), glm::vec3(0.0f, 1.0f, 0.0f)); // Y축 회전
+
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(revolution_x1), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(scale_oNum, scale_oNum, scale_oNum));
+	}
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(Tx, Ty2, Tz2)); // X축 이동
+
+	modelMatrix = glm::translate(modelMatrix, glm::vec3(Tx2, 0.0f, 0.0f)); // X축 이동
+	//이동 후
+	{
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation2_X), glm::vec3(1.0f, 0.0f, 0.0f)); // X축 회전
+		modelMatrix = glm::rotate(modelMatrix, glm::radians(rotation2_y), glm::vec3(0.0f, 1.0f, 0.0f)); // Y축 회전
+
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(scale_aNum, scale_aNum, scale_aNum));
+	}
+	// 모델 변환 행렬을 셰이더로 전달
+	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+	// 축 그리기
+	drawAxes();
+	switch (shape2_num) {
+	case 0: // 정육면체
+		for (int i = 0; i < 6; i++) {
+			glBindVertexArray(cubeVAO);
+			glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * 4 * i));
+		}
+		break;
+	case 1: // 피라미드
+		glBindVertexArray(pyramidVAO);
+		glDrawElements(GL_TRIANGLES, 13, GL_UNSIGNED_INT, 0);
+		break;
+	case 2: // GLU 원기둥
+		drawCylinderWithGLU();
+		break;
+	case 3: // GLU 원뿔
+		drawConeWithGLU();
 		break;
 	}
 	glBindVertexArray(0);
@@ -614,9 +733,315 @@ GLvoid Reshape(int w, int h)
 	glViewport(0, 0, w, h);
 }
 
+void TimerFunction(int value)
+{
+	switch (moveMode) {
+	case 1:
+		revolution_y += revolutuion_dy;
+		Tx += 0.005f;
+		break;
+	case 2:
+		Tx += Tdx;
+		if (Tx < -0.5f || Tx > 0.5f)
+			Tdx *= -1;
+		break;
+	case 3:
+		revolution_y += revolutuion_dy;
+		break;
+	case 4:
+		//revolution_x += 2.0f;
+		//Tz1 += dz;
+		//Tz2 += dz;
+		Ty1 += dy;
+		Ty2 -= dy;
+		Tx1 -= dx;
+		Tx2 -= dx;
+		if (Ty1 >= 0.5f)
+			dy = -0.01f;
+		if (Tx1 <= -1.0f)
+			dx = -0.01f;
+		if (Ty1 <= -0.5f)
+			dy = 0.01f;
+		if (Tx1 >= 0.0f)
+			dx = 0.01f;
+		break;
+	case 5:
+		revolution_y += revolutuion_dy;
+		rotation1_y += rotation_dy;
+		rotation2_y += rotation_dy;
+		//rotation1_X += rotation_dx;
+		//rotation2_X += rotation_dx;
+		scale_aNum += scale_d;
+		if (scale_aNum > 2.0f || scale_aNum < 0.1f)
+			scale_d *= -1;
+		break;
+	}
+
+	InitOpenGL();
+	glutPostRedisplay(); // 화면 갱신
+	glutTimerFunc(30, TimerFunction, 1); // 타이머 함수 호출
+}
+
+void reset() {
+	shape1_num = 3; shape2_num = 0;
+	rotation1_X = 0.0f;
+	rotation1_y = 0.0f;
+	rotation2_X = 0.0f;
+	rotation2_y = 0.0f;
+	revolution_y = 0.0f;
+	revolution_x = 0.0f;
+	Rotation_X = false;
+	Rotation_Y = false;
+	rotationNum = 3;
+	revolution = false;
+	scale_aNum = 1.0f;
+	scale_oNum = 1.0f;
+	scale_d = 0.01f;
+	moveMode = -1;
+	Tx = 0.5f;
+	Tx1 = 0.0f;
+	Tx2 = 0.0f;
+	Ty1 = 0.0f;
+	Ty2 = 0.0f;
+	Tz1 = 0.0f;
+	Tz2 = 0.0f;
+	dz = 0.01f;
+	dy = 0.01f;
+	dx = 0.01f;
+}
 
 GLvoid Keyboard(unsigned char key, int x, int y) {
 	switch (key) {
+	case '1':
+		rotationNum = 1;
+		break;
+	case '2':
+		rotationNum = 2;
+		break;
+	case '3':
+		rotationNum = 3;
+		break;
+	case 'x':
+		Rotation_X = true;
+		rotation_dx = 2.0f;
+		switch (rotationNum) {
+		case 1:
+			rotation1_X += rotation_dx;
+			break;
+		case 2:
+			rotation2_X += rotation_dx;
+			break;
+		case 3:
+			rotation1_X += rotation_dx;
+			rotation2_X += rotation_dx;
+			break;
+		}
+		break;
+	case'X':
+		Rotation_X = true;
+		rotation_dx = -2.0f;
+		switch (rotationNum) {
+		case 1:
+			rotation1_X += rotation_dx;
+			break;
+		case 2:
+			rotation2_X += rotation_dx;
+			break;
+		case 3:
+			rotation1_X += rotation_dx;
+			rotation2_X += rotation_dx;
+			break;
+		}
+		break;
+	case'y':
+		Rotation_Y = true;
+		rotation_dy = 2.0f;
+		switch (rotationNum) {
+		case 1:
+			rotation1_y += rotation_dy;
+			break;
+		case 2:
+			rotation2_y += rotation_dy;
+			break;
+		case 3:
+			rotation1_y += rotation_dy;
+			rotation2_y += rotation_dy;
+			break;
+		}
+		break;
+	case'Y':
+		Rotation_Y = true;
+		rotation_dy = -2.0f;
+		switch (rotationNum) {
+		case 1:
+			rotation1_y += rotation_dy;
+			break;
+		case 2:
+			rotation2_y += rotation_dy;
+			break;
+		case 3:
+			rotation1_y += rotation_dy;
+			rotation2_y += rotation_dy;
+			break;
+		}
+		break;
+	case'r':
+		revolution = true;
+		revolutuion_dy = 1.0f;
+		revolution_y += revolutuion_dy;
+		break;
+	case'R':
+		revolution = true;
+		revolutuion_dy = -1.0f;
+		revolution_y += revolutuion_dy;
+		break;
+	case'c':
+		shape1_num = rand() % 4;
+		shape2_num = rand() % 4;
+		break;
+	case's':
+		reset();
+		break;
+	case 'a':
+		scale_aNum -= 0.05f;
+		break;
+	case 'A':
+		scale_aNum += 0.05f;
+		break;
+	case 'o':
+		scale_oNum -= 0.05f;
+		break;
+	case 'O':
+		scale_oNum += 0.05f;
+		break;
+	case '4':
+		//x축 이동
+		transMode = 4;
+		break;
+	case '5':
+		//y축 이동
+		transMode = 5;
+		break;
+	case '6':
+		//z축 이동
+		transMode = 6;
+		break;
+	case '7':
+		//xz평면에서 이동 or 공간 이동
+		transMode = 7;
+		break;
+	case'g':
+		//평면에 스파이럴을 그리고, 그 스파이럴 위치에 따라 객체 이동 애니메이션
+		reset();
+		Tx = 0.0f;
+		revolutuion_dy = 1.0f;
+		moveMode = 1;
+		break;
+	case 'h':
+		//두 도형이 원점을 통과하며 상대방의 자리로 이동하는 애니메이션
+		reset();
+		revolution_y = 90.0f;
+		moveMode = 2;
+		break;
+	case 'j':
+		//두 도형이 공전하면서 상대방의 자리로 이동하는 애니메이션
+		reset();
+		revolutuion_dy = 1.0f;
+		moveMode = 3;
+		break;
+	case 'k':
+		//두 도형이 한 개는 위로, 다른 도형은 아래로 이동하면서 상대방의 자리로 이동하는 애니메이션
+		reset();
+		revolution_y = 90.0f;
+		moveMode = 4;
+		break;
+	case'l':
+		//두 도형이 한 개는 확대, 다른 한 개는 축소되며 자전과 공전하기
+		rotation_dy = 4.0f;
+		rotation_dx = 4.0f;
+		moveMode = 5;
+		break;
+	}
+
+	glutPostRedisplay();  // 화면을 갱신합니다.
+}
+
+GLvoid SpecialKey(int key, int x, int y) {
+	switch (key) {
+	case GLUT_KEY_UP:
+		switch (transMode) {
+		case 4:
+			revolution_x = 0.0f;
+			revolution_y = 0.0f;
+			Tx += 0.05f;
+			break;
+		case 5:
+			revolution_x = 0.0f;
+			revolution_x1 = 90.0f;
+			revolution_y = 0.0f;
+			Tz1 += 0.05f;
+			Tz2 += 0.05f;
+			break;
+		case 6:
+			revolution_x = 0.0f;
+			revolution_y = 90.0f;
+			Tx += 0.05f;
+			break;
+		case 7:
+			revolution_x = 0.0f;
+			revolution_y = 0.0f;
+			Tx += 0.05f;
+			break;
+		}
+		break;
+	case GLUT_KEY_DOWN:
+		switch (transMode) {
+		case 4:
+			revolution_x = 0.0f;
+			revolution_y = 0.0f;
+			Tx -= 0.05f;
+			break;
+		case 5:
+			revolution_x = 0.0f;
+			revolution_x1 = 90.0f;
+			revolution_y = 0.0f;
+			Tz1 -= 0.05f;
+			Tz2 -= 0.05f;
+			break;
+		case 6:
+			revolution_x = 0.0f;
+			revolution_y = 90.0f;
+			Tx -= 0.05f;
+			break;
+		case 7:
+			revolution_x = 0.0f;
+			revolution_y = 0.0f;
+			Tx -= 0.05f;
+			break;
+		}
+		break;
+	case GLUT_KEY_LEFT:
+		switch (transMode) {
+		case 7:
+			revolution_x = 0.0f;
+			revolution_x1 = 90.0f;
+			revolution_y = 0.0f;
+			Ty1 += 0.05f;
+			Ty2 += 0.05f;
+			break;
+		}
+		break;
+	case GLUT_KEY_RIGHT:
+		switch (transMode) {
+		case 7:
+			revolution_x = 0.0f;
+			revolution_x1 = 90.0f;
+			revolution_y = 0.0f;
+			Ty1 -= 0.05f;
+			Ty2 -= 0.05f;
+			break;
+		}
+		break;
 	}
 
 	glutPostRedisplay();  // 화면을 갱신합니다.
@@ -637,5 +1062,9 @@ void main(int argc, char** argv) {
 	glutDisplayFunc(drawScene);   // 출력 콜백함수의 지정
 	glutReshapeFunc(Reshape);     // 다시 그리기 콜백함수 지정
 	glutKeyboardFunc(Keyboard);   // 일반 키 입력 처리
+	glutSpecialFunc(SpecialKey);  // 특수 키 입력 처리 (방향키 등)
+	glutTimerFunc(30, TimerFunction, 1); // 타이머 함수 설정
 	glutMainLoop();               // 이벤트 처리 시작
 }
+
+
