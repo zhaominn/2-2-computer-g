@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EE87F102-4BCD-4620-A882-36770BE540FB}|\uC2E4\uC2B5 16\\\uC2E4\uC2B5 16.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 16\\\uC2E4\uC2B516.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{EE87F102-4BCD-4620-A882-36770BE540FB}|\uC2E4\uC2B5 16\\\uC2E4\uC2B5 16.vcxproj|solutionrelative:\uC2E4\uC2B5 16\\\uC2E4\uC2B516.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{CC789BC9-B04E-4196-8EA1-08CFABC39313}|\uC2E4\uC2B5 17\\\uC2E4\uC2B5 17.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{CC789BC9-B04E-4196-8EA1-08CFABC39313}|\uC2E4\uC2B5 17\\\uC2E4\uC2B5 17.vcxproj|solutionrelative:\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9EB25BFA-EFAB-41AD-AEC5-90BBE059175A}|\uC2E4\uC2B5 15\\\uC2E4\uC2B5 15.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 15\\\uC2E4\uC2B515.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{9EB25BFA-EFAB-41AD-AEC5-90BBE059175A}|\uC2E4\uC2B5 15\\\uC2E4\uC2B5 15.vcxproj|solutionrelative:\uC2E4\uC2B5 15\\\uC2E4\uC2B515.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{CC789BC9-B04E-4196-8EA1-08CFABC39313}|\uC2E4\uC2B5 17\\\uC2E4\uC2B5 17.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{CC789BC9-B04E-4196-8EA1-08CFABC39313}|\uC2E4\uC2B5 17\\\uC2E4\uC2B5 17.vcxproj|solutionrelative:\uC2E4\uC2B5 17\\vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 45,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,28 +26,29 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "\uC2E4\uC2B516.cpp",
-              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 16\\\uC2E4\uC2B516.cpp",
-              "RelativeDocumentMoniker": "\uC2E4\uC2B5 16\\\uC2E4\uC2B516.cpp",
-              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 16\\\uC2E4\uC2B516.cpp*",
-              "RelativeToolTip": "\uC2E4\uC2B5 16\\\uC2E4\uC2B516.cpp*",
-              "ViewState": "AgIAAOoCAAAAAAAAAAASwPkCAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-19T16:10:12.385Z",
+              "DocumentIndex": 1,
+              "Title": "vertex.glsl",
+              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\vertex.glsl",
+              "RelativeDocumentMoniker": "\uC2E4\uC2B5 17\\vertex.glsl",
+              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\vertex.glsl",
+              "RelativeToolTip": "\uC2E4\uC2B5 17\\vertex.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-10-31T14:00:18.08Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "\uC2E4\uC2B515.cpp",
-              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 15\\\uC2E4\uC2B515.cpp",
-              "RelativeDocumentMoniker": "\uC2E4\uC2B5 15\\\uC2E4\uC2B515.cpp",
-              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 15\\\uC2E4\uC2B515.cpp",
-              "RelativeToolTip": "\uC2E4\uC2B5 15\\\uC2E4\uC2B515.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "\uC2E4\uC2B517.cpp",
+              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
+              "RelativeDocumentMoniker": "\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
+              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
+              "RelativeToolTip": "\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
+              "ViewState": "AgIAAN8AAAAAAAAAAAAAABYBAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-19T11:53:06.656Z"
+              "WhenOpened": "2024-10-29T08:17:40.034Z",
+              "EditorCaption": ""
             }
           ]
         },
