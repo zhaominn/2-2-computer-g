@@ -7,6 +7,9 @@
       "RelativeMoniker": "D:0:0:{127C5193-4131-43AD-9192-045F13457E2C}|\uC2E4\uC2B5 18\\\uC2E4\uC2B5 18.vcxproj|solutionrelative:\uC2E4\uC2B5 18\\18.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A436A845-E8A7-4362-829B-A2E40538F496}|\uC2E4\uC2B5 14\\\uC2E4\uC2B5 14.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 14\\\uC2E4\uC2B514.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A436A845-E8A7-4362-829B-A2E40538F496}|\uC2E4\uC2B5 14\\\uC2E4\uC2B5 14.vcxproj|solutionrelative:\uC2E4\uC2B5 14\\\uC2E4\uC2B514.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -22,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 45,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,6 +34,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "vector",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
+              "ViewState": "AgIAAFMHAAAAAAAAAAAqwFwHAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-11-01T13:05:54.535Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "\uC2E4\uC2B514.cpp",
               "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 14\\\uC2E4\uC2B514.cpp",
               "RelativeDocumentMoniker": "\uC2E4\uC2B5 14\\\uC2E4\uC2B514.cpp",
@@ -38,8 +54,7 @@
               "RelativeToolTip": "\uC2E4\uC2B5 14\\\uC2E4\uC2B514.cpp",
               "ViewState": "AgIAAFgBAAAAAAAAAAAAAGgBAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-01T07:15:57.055Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T07:15:57.055Z"
             },
             {
               "$type": "Document",
@@ -49,14 +64,14 @@
               "RelativeDocumentMoniker": "\uC2E4\uC2B5 18\\18.cpp",
               "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 18\\18.cpp",
               "RelativeToolTip": "\uC2E4\uC2B5 18\\18.cpp",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAAAMYBAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAANsBAAAAAAAAAAAAAOcBAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-31T14:35:16.941Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "\uC2E4\uC2B517.cpp",
               "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
               "RelativeDocumentMoniker": "\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
@@ -64,8 +79,7 @@
               "RelativeToolTip": "\uC2E4\uC2B5 17\\\uC2E4\uC2B517.cpp",
               "ViewState": "AgIAAI0BAAAAAAAAAAAAAI8BAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-29T08:17:40.034Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T08:17:40.034Z"
             }
           ]
         },

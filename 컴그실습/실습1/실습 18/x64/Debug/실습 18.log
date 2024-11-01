@@ -1,20 +1,21 @@
 ﻿  18.cpp
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(221,12): warning C4244: '초기화 중': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(222,12): warning C4244: '초기화 중': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(276,20): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(281,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(445,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(451,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(458,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(468,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(472,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(482,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(487,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(524,9): warning C4305: '-=': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(527,9): warning C4305: '+=': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(552,9): warning C4305: '+=': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(555,9): warning C4305: '-=': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(558,9): warning C4305: '-=': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(561,9): warning C4305: '+=': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(568,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(221,13): warning C4244: '초기화 중': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(222,13): warning C4244: '초기화 중': 'double'에서 'GLfloat'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(278,20): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(283,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(449,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(454,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(461,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(471,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(483,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(493,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(505,49): warning C4267: '인수': 'size_t'에서 'GLsizei'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(542,9): warning C4305: '-=': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(545,9): warning C4305: '+=': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(560,9): warning C4305: '+=': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(563,9): warning C4305: '-=': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(566,9): warning C4305: '-=': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(569,9): warning C4305: '+=': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(579,2): warning C4060: switch문에 'case' 또는 'default' 레이블이 없습니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 18\18.cpp(583,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
   실습 18.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습 18.exe

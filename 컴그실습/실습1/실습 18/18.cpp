@@ -216,15 +216,15 @@ GLuint circleVAO, circleVBO_position, circleVBO_color;
 void InitBufferForCircle() {
 	// 축의 정점 데이터
 	std::vector<glm::vec3> circleVertices;
-	for (int i = 0; i < 360; i++) { 
-	double angle = i * 3.141592 / 180;
-	GLfloat x = 0.6 * cos(angle);
-	GLfloat z = 0.6* sin(angle);
-	glm::vec3 temp = { x,0.0f,z };
-	circleVertices.push_back(temp);
+	for (int i = 0; i < 360; i++) {
+		double angle = i * 3.141592 / 180;
+		GLfloat x = 0.6 * cos(angle);
+		GLfloat z = 0.6 * sin(angle);
+		glm::vec3 temp = { x,0.0f,z };
+		circleVertices.push_back(temp);
 	}
 
-// 축의 색상 데이터
+	// 축의 색상 데이터
 	std::vector<glm::vec3> circleColors;
 
 	for (int i = 0; i < 360; i++) {
@@ -259,9 +259,11 @@ void InitBufferForCircle() {
 
 void drawCircle() {
 	glBindVertexArray(circleVAO);
-	glDrawArrays(GL_LINE_STRIP, 0, 360); 
+	glDrawArrays(GL_LINE_STRIP, 0, 360);
 	glBindVertexArray(0);
 }
+
+
 
 GLuint sphereVAO, sphereVBO_position, sphereVBO_color, sphereEBO;
 
@@ -373,9 +375,8 @@ GLvoid drawScene() {
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, &view[0][0]); //--- viewTransform 변수에 변환값 적용하기
 	//---------------------------------------------------------------
 	glm::mat4 projection = glm::mat4(1.0f);
-	if (p) {
+	if (p)
 		projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -2.0f, 2.0f);  // 직각 투영 설정
-	}
 	else {
 		glm::mat4 projection = glm::mat4(1.0f);
 		projection = glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, 50.0f); //--- 투영 공간 설정: fovy, aspect, near, far
@@ -386,7 +387,7 @@ GLvoid drawScene() {
 	//---------------------------------------------------------------
 	glm::mat4 Rx = glm::mat4(1.0f);
 	glm::mat4 Ry = glm::mat4(1.0f);
-	glm::mat4 Rz= glm::mat4(1.0f);
+	glm::mat4 Rz = glm::mat4(1.0f);
 	glm::mat4 T1 = glm::mat4(1.0f);
 	glm::mat4 RR = glm::mat4(1.0f);
 
@@ -408,34 +409,37 @@ GLvoid drawScene() {
 	S1 = glm::scale(S1, glm::vec3(0.4f, 0.4f, 0.4f));
 	Tx1 = glm::translate(Tx1, glm::vec3(0.6f, 0.0f, 0.0f));
 	Ry1 = glm::rotate(Ry, glm::radians(ry1), glm::vec3(0.0, 1.0, 0.0));
-	H11 = RR *Ry1* Tx1*S1;
+	H11 = RR * Ry1 * Tx1 * S1;
 	H12 = RR * T2 * Ry1 * Tx1 * S1 * S1;
 
 	glm::mat4 Rz21 = glm::mat4(1.0f);
 	glm::mat4 H20 = glm::mat4(1.0f);
 	glm::mat4 H21 = glm::mat4(1.0f);
 	glm::mat4 H22 = glm::mat4(1.0f);
+	glm::mat4 H23= glm::mat4(1.0f);
 	Rz21 = glm::rotate(Rz21, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
 	H20 = RR * Rz21;
 	H21 = H20 * Ry1 * Tx1 * S1;
-	//H22= H21에서 반지름만큼 왼쪽으로 이동. 근데 Rz21전에 이동하는...ㅜ
-	H22 = RR * T2 * Rz21 * Ry1 * Tx1 * S1*S1;
+	H22 = RR * T2 * Rz21 * Ry1 * Tx1 * S1 * S1;
+	H23= Rz21 * Ry1 * Tx1 * S1;
 
 	glm::mat4 Rz31 = glm::mat4(1.0f);
 	glm::mat4 H30 = glm::mat4(1.0f);
 	glm::mat4 H31 = glm::mat4(1.0f);
 	glm::mat4 H32 = glm::mat4(1.0f);
+	glm::mat4 H33 = glm::mat4(1.0f);
 	Rz31 = glm::rotate(Rz31, glm::radians(-45.0f), glm::vec3(0.0, 0.0, 1.0));
 	H30 = RR * Rz31;
 	H31 = H30 * Ry1 * Tx1 * S1;
 	H32 = RR * T2 * Rz31 * Ry1 * Tx1 * S1 * S1;
+	H33= Rz31 *Ry1 * Tx1 * S1;
 
 	unsigned int modelLocation = glGetUniformLocation(shaderProgram, "modelTransform"); //--- 버텍스 세이더에서 모델링 변환 위치 가져오기
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(RR)); //--- modelTransform 변수에 변환 값 적용하기
 	drawAxes();
 	drawCircle();
 
-	if(m)
+	if (m)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	else
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -443,8 +447,7 @@ GLvoid drawScene() {
 	//중심
 	glBindVertexArray(sphereVAO);
 	glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0); // 구를 삼각형으로 렌더링
-	
-	
+
 	//행성1
 	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H11));
@@ -456,17 +459,25 @@ GLvoid drawScene() {
 	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H12));
 	glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
-	
+
 	//행성2
 	glBindVertexArray(sphereVAO);
 	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H20));
 	drawCircle();
 	glBindVertexArray(sphereVAO);
-	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform"); 
+	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H21));
 	glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
 	//달2
+	glm::vec3 position = glm::vec3(H23[3]); // 위치는 유지하고
+	glm::mat4 flatTransform = glm::translate(glm::mat4(1.0f), position); // 위치만 반영
+	flatTransform = glm::scale(flatTransform, glm::vec3(0.36, 1.0f, 0.36)); // 반지름에 따른 스케일 적용
+	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(RR*flatTransform));
+	drawCircle();
+
+	glBindVertexArray(sphereVAO);
 	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H22));
 	glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
@@ -481,11 +492,18 @@ GLvoid drawScene() {
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H31));
 	glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
 
-	//달
+	//달3
+	position = glm::vec3(H33[3]); // 위치는 유지하고
+	flatTransform = glm::translate(glm::mat4(1.0f), position); // 위치만 반영
+	flatTransform = glm::scale(flatTransform, glm::vec3(0.36, 1.0f, 0.36)); // 반지름에 따른 스케일 적용
+	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(RR * flatTransform));
+	drawCircle();
+	glBindVertexArray(sphereVAO);
 	modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H32));
 	glDrawElements(GL_TRIANGLES, sphereIndices.size(), GL_UNSIGNED_INT, 0);
-	
+
 	glBindVertexArray(0);
 
 
@@ -504,7 +522,7 @@ void TimerFunction(int value)
 	glutPostRedisplay(); // 화면 갱신
 
 	ry1 += 1.0f;
-	angle+=0.1f;
+	angle += 0.1f;
 	if (angle >= 360)
 		angle = 0;
 
@@ -538,30 +556,27 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 	case 'Z':
 		dz += 1.0f;
 		break;
+	case 'w':
+		ty += 0.01;
+		break;
+	case 's':
+		ty -= 0.01;
+		break;
+	case 'a':
+		tx -= 0.01;
+		break;
+	case 'd':
+		tx += 0.01;
+		break;
 	default:
 		break;
 	}
-
-	//InitOpenGL();
 	glutPostRedisplay(); //화면 갱신
 }
 
 GLvoid SpecialKey(int key, int x, int y) {
 	switch (key) {
-	case GLUT_KEY_UP:
-		ty += 0.01;
-		break;
-	case GLUT_KEY_DOWN:
-		ty -= 0.01;
-		break;
-	case GLUT_KEY_LEFT:
-		tx -= 0.01;
-		break;
-	case GLUT_KEY_RIGHT:
-		tx += 0.01;
-		break;
 	}
-
 	glutPostRedisplay();  // 화면을 갱신합니다.
 }
 
