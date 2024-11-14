@@ -1,0 +1,13 @@
+﻿  21.cpp
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(690,18): warning C4305: '+=': 'double'에서 'T'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(690,18): warning C4305:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(690,18): warning C4305:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(690,18): warning C4305:             T=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(690,18): warning C4305:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(693,18): warning C4305: '-=': 'double'에서 'T'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(693,18): warning C4305:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(693,18): warning C4305:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(693,18): warning C4305:             T=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(693,18): warning C4305:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 21\21.cpp(749,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+  실습 21.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습 21.exe
