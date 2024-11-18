@@ -165,23 +165,38 @@ void InitBufferForCube1() {
 	// 인덱스 데이터
 	std::vector<unsigned int> indices;
 
-	for (const auto& face : cubeModel1.faces) {
-		indices.push_back(face.v1);
-		indices.push_back(face.v2);
-		indices.push_back(face.v3);
-	}
-
-	// 색상 데이터 설정
-	std::vector<glm::vec3> vertexColor = {
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
-		glm::vec3(rand() % 10 / 10.0f,rand() % 10 / 10.0f, rand() % 10 / 10.0f),
+	// 버텍스와 색상을 면 단위로 재정의
+	std::vector<Vertex> faceVertices;
+	std::vector<glm::vec3> faceColors = {
+		glm::vec3(0.9f, 0.9f, 0.9f),
+		glm::vec3(0.6f, 0.6f, 0.6f),
+		glm::vec3(0.7f, 0.7f, 0.7f),
+		glm::vec3(0.6f, 0.6f, 0.6f),
+		glm::vec3(0.3f, 0.3f, 0.3f),
+		glm::vec3(0.3f, 0.3f, 0.3f),
 	};
+
+	std::vector<glm::vec3> vertexColors; // 최종 색상 데이터
+
+	for (size_t i = 0; i < cubeModel1.faces.size(); ++i) {
+		const auto& face = cubeModel1.faces[i];
+		glm::vec3 color = faceColors[i / 2]; // 각 면의 색상 (면 번호 기반)
+
+		// 각 면의 버텍스를 중복 추가
+		faceVertices.push_back(cubeModel1.vertices[face.v1]);
+		faceVertices.push_back(cubeModel1.vertices[face.v2]);
+		faceVertices.push_back(cubeModel1.vertices[face.v3]);
+
+		// 색상도 동일하게 추가
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+
+		// 인덱스는 단순히 0부터 추가
+		indices.push_back(i * 3);
+		indices.push_back(i * 3 + 1);
+		indices.push_back(i * 3 + 2);
+	}
 
 	// VAO 설정
 	glGenVertexArrays(1, &cubeVAO1);
@@ -190,19 +205,19 @@ void InitBufferForCube1() {
 	// VBO 설정 (버텍스 데이터)
 	glGenBuffers(1, &cubeVBO_position1);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position1);
-	glBufferData(GL_ARRAY_BUFFER, cubeModel1.vertices.size() * sizeof(Vertex), &cubeModel1.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, faceVertices.size() * sizeof(Vertex), &faceVertices[0], GL_STATIC_DRAW);
 
 	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glEnableVertexAttribArray(pAttribute);
 
-
+	// 색상 VBO 설정
 	glGenBuffers(1, &cubeVBO_color1);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_color1);
-	glBufferData(GL_ARRAY_BUFFER, vertexColor.size() * sizeof(glm::vec3), &vertexColor[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexColors.size() * sizeof(glm::vec3), &vertexColors[0], GL_STATIC_DRAW);
 
 	GLint cAttribute = glGetAttribLocation(shaderProgram, "vColor");
-	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(cAttribute);
 
 	// EBO 설정
@@ -220,23 +235,38 @@ void InitBufferForCube2() {
 	// 인덱스 데이터
 	std::vector<unsigned int> indices;
 
-	for (const auto& face : cubeModel2.faces) {
-		indices.push_back(face.v1);
-		indices.push_back(face.v2);
-		indices.push_back(face.v3);
-	}
-
-	// 색상 데이터 설정
-	std::vector<glm::vec3> vertexColor = {
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
-		glm::vec3(1.0f,0.8f, 0.8f),
+	// 버텍스와 색상을 면 단위로 재정의
+	std::vector<Vertex> faceVertices;
+	std::vector<glm::vec3> faceColors = {
+		glm::vec3(1.0f, 0.8f, 0.8f),
+		glm::vec3(1.0f, 0.8f, 0.8f),
+		glm::vec3(1.0f, 0.8f, 0.8f),
+		glm::vec3(1.0f, 0.8f, 0.8f),
+		glm::vec3(1.0f, 0.8f, 0.8f),
+		glm::vec3(1.0f, 0.8f, 0.8f),
 	};
+
+	std::vector<glm::vec3> vertexColors; // 최종 색상 데이터
+
+	for (size_t i = 0; i < cubeModel2.faces.size(); ++i) {
+		const auto& face = cubeModel2.faces[i];
+		glm::vec3 color = faceColors[i / 2]; // 각 면의 색상 (면 번호 기반)
+
+		// 각 면의 버텍스를 중복 추가
+		faceVertices.push_back(cubeModel2.vertices[face.v1]);
+		faceVertices.push_back(cubeModel2.vertices[face.v2]);
+		faceVertices.push_back(cubeModel2.vertices[face.v3]);
+
+		// 색상도 동일하게 추가
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+
+		// 인덱스는 단순히 0부터 추가
+		indices.push_back(i * 3);
+		indices.push_back(i * 3 + 1);
+		indices.push_back(i * 3 + 2);
+	}
 
 	// VAO 설정
 	glGenVertexArrays(1, &cubeVAO2);
@@ -245,19 +275,19 @@ void InitBufferForCube2() {
 	// VBO 설정 (버텍스 데이터)
 	glGenBuffers(1, &cubeVBO_position2);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position2);
-	glBufferData(GL_ARRAY_BUFFER, cubeModel2.vertices.size() * sizeof(Vertex), &cubeModel2.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, faceVertices.size() * sizeof(Vertex), &faceVertices[0], GL_STATIC_DRAW);
 
 	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glEnableVertexAttribArray(pAttribute);
 
-
+	// 색상 VBO 설정
 	glGenBuffers(1, &cubeVBO_color2);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_color2);
-	glBufferData(GL_ARRAY_BUFFER, vertexColor.size() * sizeof(glm::vec3), &vertexColor[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexColors.size() * sizeof(glm::vec3), &vertexColors[0], GL_STATIC_DRAW);
 
 	GLint cAttribute = glGetAttribLocation(shaderProgram, "vColor");
-	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(cAttribute);
 
 	// EBO 설정
@@ -275,23 +305,38 @@ void InitBufferForCube3() {
 	// 인덱스 데이터
 	std::vector<unsigned int> indices;
 
-	for (const auto& face : cubeModel3.faces) {
-		indices.push_back(face.v1);
-		indices.push_back(face.v2);
-		indices.push_back(face.v3);
-	}
-
-	// 색상 데이터 설정
-	std::vector<glm::vec3> vertexColor = {
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
-		glm::vec3(1.0f,0.5f, 0.5f),
+	// 버텍스와 색상을 면 단위로 재정의
+	std::vector<Vertex> faceVertices;
+	std::vector<glm::vec3> faceColors = {
+		glm::vec3(1.0f, 0.6f, 0.6f),
+		glm::vec3(1.0f, 0.6f, 0.6f),
+		glm::vec3(1.0f, 0.6f, 0.6f),
+		glm::vec3(1.0f, 0.6f, 0.6f),
+		glm::vec3(1.0f, 0.6f, 0.6f),
+		glm::vec3(1.0f, 0.6f, 0.6f),
 	};
+
+	std::vector<glm::vec3> vertexColors; // 최종 색상 데이터
+
+	for (size_t i = 0; i < cubeModel3.faces.size(); ++i) {
+		const auto& face = cubeModel3.faces[i];
+		glm::vec3 color = faceColors[i / 2]; // 각 면의 색상 (면 번호 기반)
+
+		// 각 면의 버텍스를 중복 추가
+		faceVertices.push_back(cubeModel3.vertices[face.v1]);
+		faceVertices.push_back(cubeModel3.vertices[face.v2]);
+		faceVertices.push_back(cubeModel3.vertices[face.v3]);
+
+		// 색상도 동일하게 추가
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+
+		// 인덱스는 단순히 0부터 추가
+		indices.push_back(i * 3);
+		indices.push_back(i * 3 + 1);
+		indices.push_back(i * 3 + 2);
+	}
 
 	// VAO 설정
 	glGenVertexArrays(1, &cubeVAO3);
@@ -300,19 +345,19 @@ void InitBufferForCube3() {
 	// VBO 설정 (버텍스 데이터)
 	glGenBuffers(1, &cubeVBO_position3);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position3);
-	glBufferData(GL_ARRAY_BUFFER, cubeModel3.vertices.size() * sizeof(Vertex), &cubeModel3.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, faceVertices.size() * sizeof(Vertex), &faceVertices[0], GL_STATIC_DRAW);
 
 	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glEnableVertexAttribArray(pAttribute);
 
-
+	// 색상 VBO 설정
 	glGenBuffers(1, &cubeVBO_color3);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_color3);
-	glBufferData(GL_ARRAY_BUFFER, vertexColor.size() * sizeof(glm::vec3), &vertexColor[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexColors.size() * sizeof(glm::vec3), &vertexColors[0], GL_STATIC_DRAW);
 
 	GLint cAttribute = glGetAttribLocation(shaderProgram, "vColor");
-	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(cAttribute);
 
 	// EBO 설정
@@ -330,23 +375,38 @@ void InitBufferForCube4() {
 	// 인덱스 데이터
 	std::vector<unsigned int> indices;
 
-	for (const auto& face : cubeModel4.faces) {
-		indices.push_back(face.v1);
-		indices.push_back(face.v2);
-		indices.push_back(face.v3);
-	}
-
-	// 색상 데이터 설정
-	std::vector<glm::vec3> vertexColor = {
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
-		glm::vec3(1.0f,0.2f, 0.2f),
+	// 버텍스와 색상을 면 단위로 재정의
+	std::vector<Vertex> faceVertices;
+	std::vector<glm::vec3> faceColors = {
+		glm::vec3(1.0f, 0.4f, 0.4f),
+		glm::vec3(1.0f, 0.4f, 0.4f),
+		glm::vec3(1.0f, 0.4f, 0.4f),
+		glm::vec3(1.0f, 0.4f, 0.4f),
+		glm::vec3(1.0f, 0.4f, 0.4f),
+		glm::vec3(1.0f, 0.4f, 0.4f),
 	};
+
+	std::vector<glm::vec3> vertexColors; // 최종 색상 데이터
+
+	for (size_t i = 0; i < cubeModel4.faces.size(); ++i) {
+		const auto& face = cubeModel4.faces[i];
+		glm::vec3 color = faceColors[i / 2]; // 각 면의 색상 (면 번호 기반)
+
+		// 각 면의 버텍스를 중복 추가
+		faceVertices.push_back(cubeModel4.vertices[face.v1]);
+		faceVertices.push_back(cubeModel4.vertices[face.v2]);
+		faceVertices.push_back(cubeModel4.vertices[face.v3]);
+
+		// 색상도 동일하게 추가
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+		vertexColors.push_back(color);
+
+		// 인덱스는 단순히 0부터 추가
+		indices.push_back(i * 3);
+		indices.push_back(i * 3 + 1);
+		indices.push_back(i * 3 + 2);
+	}
 
 	// VAO 설정
 	glGenVertexArrays(1, &cubeVAO4);
@@ -355,19 +415,19 @@ void InitBufferForCube4() {
 	// VBO 설정 (버텍스 데이터)
 	glGenBuffers(1, &cubeVBO_position4);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position4);
-	glBufferData(GL_ARRAY_BUFFER, cubeModel4.vertices.size() * sizeof(Vertex), &cubeModel4.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, faceVertices.size() * sizeof(Vertex), &faceVertices[0], GL_STATIC_DRAW);
 
 	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
 	glEnableVertexAttribArray(pAttribute);
 
-
+	// 색상 VBO 설정
 	glGenBuffers(1, &cubeVBO_color4);
 	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_color4);
-	glBufferData(GL_ARRAY_BUFFER, vertexColor.size() * sizeof(glm::vec3), &vertexColor[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexColors.size() * sizeof(glm::vec3), &vertexColors[0], GL_STATIC_DRAW);
 
 	GLint cAttribute = glGetAttribLocation(shaderProgram, "vColor");
-	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), 0);
 	glEnableVertexAttribArray(cAttribute);
 
 	// EBO 설정
@@ -433,7 +493,7 @@ GLvoid drawScene() {
 	//무대
 	glm::mat4 S_1 = glm::mat4(1.0f);
 	glm::mat4 H1 = glm::mat4(1.0f);
-	S_1 = glm::scale(S_1, glm::vec3(7.0, 7.0, 7.0));
+	S_1 = glm::scale(S_1, glm::vec3(5.0, 5.0, 5.0));
 	H1 = S_1;
 	//무대 앞면
 	glm::mat4 S_1_ = glm::mat4(1.0f);
@@ -441,24 +501,24 @@ GLvoid drawScene() {
 	glm::mat4 T_1_2 = glm::mat4(1.0f);
 	glm::mat4 H1_1 = glm::mat4(1.0f);
 	glm::mat4 H1_2 = glm::mat4(1.0f);
-	S_1 = glm::scale(S_1, glm::vec3(0.5, 1.0, 1.0));
+	S_1_ = glm::scale(S_1_, glm::vec3(2.5, 5.0, 5.0));
 	T_1_1 = glm::translate(T_1_1, glm::vec3(t1x, 0.0, 0.0));
 	T_1_2 = glm::translate(T_1_2, glm::vec3(-t1x, 0.0, 0.0));
-	H1_1 = S_1 * T_1_1;
-	H1_2 = S_1 * T_1_2;
+	H1_1 = S_1_ * T_1_1;
+	H1_2 = S_1_ * T_1_2;
 
 	//로봇 전체
 	glm::mat4 R = glm::mat4(1.0f);
 	glm::mat4 T = glm::mat4(1.0f);
 	glm::mat4 Default = glm::mat4(1.0f);
 	R = glm::rotate(R, glm::radians(GLfloat(rotate)), glm::vec3(0.0, 1.0, 0.0));
-	T = glm::translate(T, glm::vec3(tx, ty - 1.15f, tz));
+	T = glm::translate(T, glm::vec3(tx, ty - 1.0f, tz));
 	Default = T * R;
 	// 로봇 머리
 	glm::mat4 S_2 = glm::mat4(1.0f);
 	glm::mat4 T_2 = glm::mat4(1.0f);
 	glm::mat4 H2 = glm::mat4(1.0f);
-	S_2 = glm::scale(S_2, glm::vec3(0.4, 0.4, 0.2));
+	S_2 = glm::scale(S_2, glm::vec3(0.3, 0.3, 0.2));
 	T_2 = glm::translate(T_2, glm::vec3(0.0, -0.1, 0.0));
 	H2 = Default * T_2 * S_2;
 	//로봇 코
@@ -472,7 +532,7 @@ GLvoid drawScene() {
 	glm::mat4 S_3 = glm::mat4(1.0f);
 	glm::mat4 T_3 = glm::mat4(1.0f);
 	glm::mat4 H3 = glm::mat4(1.0f);
-	S_3 = glm::scale(S_3, glm::vec3(0.55, 0.7, 0.3));
+	S_3 = glm::scale(S_3, glm::vec3(0.45, 0.5, 0.25)); // 0.2 0.3 0.1
 	T_3 = glm::translate(T_3, glm::vec3(0.0, -0.4, 0.0));
 	H3 = Default * T_3 * S_3;
 	//로봇 다리
@@ -482,7 +542,7 @@ GLvoid drawScene() {
 	glm::mat4 t_4_2 = glm::mat4(1.0f);
 	glm::mat4 R_4_1 = glm::mat4(1.0f);
 	glm::mat4 H4_1 = glm::mat4(1.0f);
-	S_4_1 = glm::scale(S_4_1, glm::vec3(0.2, 0.55, 0.2));
+	S_4_1 = glm::scale(S_4_1, glm::vec3(0.2, 0.5, 0.2));
 	T_4_1 = glm::translate(T_4_1, glm::vec3(0.1, -0.8, 0.0));
 	t_4_1 = glm::translate(t_4_1, glm::vec3(0.0, 0.2, 0.0));
 	t_4_2 = glm::translate(t_4_2, glm::vec3(0.0, -0.2, 0.0));
@@ -503,7 +563,7 @@ GLvoid drawScene() {
 	glm::mat4 t_5_2 = glm::mat4(1.0f);
 	glm::mat4 R_5_1 = glm::mat4(1.0f);
 	glm::mat4 H5_1 = glm::mat4(1.0f);
-	S_5_1 = glm::scale(S_5_1, glm::vec3(0.1, 0.6, 0.1));
+	S_5_1 = glm::scale(S_5_1, glm::vec3(0.1, 0.5, 0.1));
 	T_5_1 = glm::translate(T_5_1, glm::vec3(0.2, -0.4, 0.0));
 	t_5_1 = glm::translate(t_5_1, glm::vec3(0.0, 0.2, 0.0));
 	t_5_2 = glm::translate(t_5_2, glm::vec3(0.0, -0.2, 0.0));
@@ -513,20 +573,20 @@ GLvoid drawScene() {
 	glm::mat4 T_5_2 = glm::mat4(1.0f);
 	glm::mat4 R_5_2 = glm::mat4(1.0f);
 	glm::mat4 H5_2 = glm::mat4(1.0f);
-	S_5_2 = glm::scale(S_5_2, glm::vec3(0.1, 0.6, 0.1));
+	S_5_2 = glm::scale(S_5_2, glm::vec3(0.1, 0.5, 0.1));
 	T_5_2 = glm::translate(T_5_2, glm::vec3(-0.2, -0.4, 0.0));
 	R_5_2 = glm::rotate(R_5_2, glm::radians(GLfloat(runX)), glm::vec3(1.0, 0.0, 0.0));
 	H5_2 = Default * T_5_2 * t_5_1 * R_5_2 * t_5_2 * S_5_2;
 
 	//장애물
 	glm::mat4 T_6 = glm::mat4(1.0f);
-	T_6 = glm::translate(T_6, glm::vec3(-1.8, -1.8, 0.0));
+	T_6 = glm::translate(T_6, glm::vec3(-1.6, -1.6, 0.0));
 
 	glm::mat4 T_7 = glm::mat4(1.0f);
-	T_7 = glm::translate(T_7, glm::vec3(0.8, -1.8, -1.8));
+	T_7 = glm::translate(T_7, glm::vec3(0.6, -1.6, -1.6));
 
 	glm::mat4 T_8 = glm::mat4(1.0f);
-	T_8 = glm::translate(T_8, glm::vec3(+1.8, -1.8, 0.0));
+	T_8 = glm::translate(T_8, glm::vec3(+1.6, -1.6, 0.0));
 
 	unsigned int modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H1));
@@ -613,39 +673,39 @@ void TimerFunction(int value)
 		switch (rotate) {
 		case 180:
 			tz -= 0.03f + 0.015f * speed;
-			if (tz < -2.0f)
+			if (tz < -1.9f)
 				rotate = 0;
 
 			// 장애물과 충돌처리
-			if (!jump&&ty<0.5&&(((tx <= -1.55f || tx >= 1.65f) && (tz >= -0.25f && tz <= 0.25f))
-				|| (tx >= 0.55f && tx <= 1.05f && tz <= -1.55f)))
+			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
+				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
 				rotate = 0;
 			break;
 		case -90:
 			tx -= 0.03f + 0.015f * speed;
-			if (tx < -2.0f)
+			if (tx < -1.9f)
 				rotate = 90;
 
-			if (!jump && ty < 0.5 && (((tx <= -1.55f || tx >= 1.65f) && (tz >= -0.25f && tz <= 0.25f))
-				|| (tx >= 0.55f && tx <= 1.05f && tz <= -1.55f)))
+			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
+				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
 				rotate = 90;
 			break;
 		case 0:
 			tz += 0.03f + 0.015f * speed;
-			if (tz > 2.0f)
+			if (tz > 1.9f)
 				rotate = 180;
 
-			if (!jump && ty < 0.5 && (((tx <= -1.55f || tx >= 1.65f) && (tz >= -0.25f && tz <= 0.25f))
-				|| (tx >= 0.55f && tx <= 1.05f && tz <= -1.55f)))
+			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
+				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
 				rotate = 180;
 			break;
 		case 90:
 			tx += 0.03f + 0.015f * speed;
-			if (tx > 2.0f)
+			if (tx > 1.9f)
 				rotate = -90;
 
-			if (!jump && ty < 0.5 && (((tx <= -1.55f || tx >= 1.65f) && (tz >= -0.25f && tz <= 0.25f))
-				|| (tx >= 0.55f && tx <= 1.05f && tz <= -1.55f)))
+			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
+				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
 				rotate = -90;
 			break;
 		}
@@ -663,20 +723,20 @@ void TimerFunction(int value)
 	if (jump) {
 		ty += 0.08f;  // 위로 점프
 		++jumpNum;
-		if (jumpNum == 10) {
+		if (jumpNum == 15) {
 			jump = false;
 			jumpNum = 0;
 		}
 	}
 	else {
-			ty -= 0.08f;
-		
+		ty -= 0.08f;
+
 		if (ty <= 0.0f)
 			ty = 0.0f;
-		//(-1.8, -1.8, 0.0));(0.8, -1.8, -1.8));(1.8, -1.8, 0.0));
-		else if(ty < 0.5f &&ty!=0.0f&& (((tx < -1.55f || tx > 1.65f) && (tz > -0.25f && tz < 0.25f))
-			|| (tx > 0.55f && tx < 1.05f && tz < -1.55f)))
-			ty = 0.5f;
+
+		else if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
+			|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
+			ty = 0.8f;
 	}
 
 	glutPostRedisplay();
