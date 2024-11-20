@@ -15,9 +15,22 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 GLfloat t1x = 2.0f;//-0.3f;
 int runX = 0; int rundx = 15;
 int rotate = 0; int rotateNum = -1;
+int rotate2[15] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 GLfloat tx = 0.0f; GLfloat ty = 0.0f; GLfloat tz = 0.0f;
+GLfloat tx2[15] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f };
+GLfloat ty2[15] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f };
+GLfloat tz2[15] = { 0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f };
 bool jump = false; int jumpNum = 0;
 int speed = 2;
+struct Block {
+	GLfloat ty;
+	bool moving;
+	int moveNum;
+};
+Block block[2] = {
+	{-1.6f,false,0},
+	{-1.6f,false,0}
+};
 //----------------------------------
 #define MAX_LINE_LENGTH 1024
 
@@ -65,7 +78,6 @@ void read_obj_file(const char* filename, Model* model) {
 				face.v2 = v2 - 1;
 				face.v3 = v3 - 1;
 				model->faces.push_back(face);
-				std::cout << "Face added: (" << face.v1 << ", " << face.v2 << ", " << face.v3 << ")\n";
 			}
 		}
 	}
@@ -238,12 +250,12 @@ void InitBufferForCube2() {
 	// 버텍스와 색상을 면 단위로 재정의
 	std::vector<Vertex> faceVertices;
 	std::vector<glm::vec3> faceColors = {
-		glm::vec3(1.0f, 0.8f, 0.8f),
-		glm::vec3(1.0f, 0.8f, 0.8f),
-		glm::vec3(1.0f, 0.8f, 0.8f),
-		glm::vec3(1.0f, 0.8f, 0.8f),
-		glm::vec3(1.0f, 0.8f, 0.8f),
-		glm::vec3(1.0f, 0.8f, 0.8f),
+		glm::vec3(1.0f, 0.3f, 0.3f),
+		glm::vec3(1.0f, 0.3f, 0.3f),
+		glm::vec3(1.0f, 0.3f, 0.3f),
+		glm::vec3(1.0f, 0.3f, 0.3f),
+		glm::vec3(1.0f, 0.3f, 0.3f),
+		glm::vec3(1.0f, 0.3f, 0.3f),
 	};
 
 	std::vector<glm::vec3> vertexColors; // 최종 색상 데이터
@@ -438,6 +450,67 @@ void InitBufferForCube4() {
 	glBindVertexArray(0);
 }
 
+GLuint cylinderVAO, cylinderVBO_position, cylinderVBO_color, cylinderEBO;
+Model cylinderModel;
+
+void InitBufferForCylinder() {
+	// 인덱스 데이터
+	std::vector<unsigned int> indices;
+
+	for (const auto& face : cylinderModel.faces) {
+		indices.push_back(face.v1);
+		indices.push_back(face.v2);
+		indices.push_back(face.v3);
+	}
+
+	// 색상 데이터 설정
+	std::vector<glm::vec3> rainbowColors = {
+	glm::vec3(1.0f, 0.6f, 0.6f),glm::vec3(1.0f, 0.6f, 0.6f),glm::vec3(1.0f, 0.6f, 0.6f),
+	glm::vec3(1.0f, 0.7f, 0.7f),glm::vec3(1.0f, 0.7f, 0.7f),glm::vec3(1.0f, 0.7f, 0.7f),
+	glm::vec3(1.0f, 0.8f, 0.8f),glm::vec3(1.0f, 0.8f, 0.8f),glm::vec3(1.0f, 0.8f, 0.8f),
+	glm::vec3(1.0f, 0.9f, 0.9f),glm::vec3(1.0f, 0.9f, 0.9f),glm::vec3(1.0f, 0.9f, 0.9f),
+	glm::vec3(1.0f, 0.8f, 0.8f),glm::vec3(1.0f, 0.8f, 0.8f),glm::vec3(1.0f, 0.8f, 0.8f),
+	glm::vec3(1.0f, 0.7f, 0.7f),glm::vec3(1.0f, 0.7f, 0.7f),glm::vec3(1.0f, 0.7f, 0.7f),
+	glm::vec3(1.0f, 0.6f, 0.6f),glm::vec3(1.0f, 0.6f, 0.6f),glm::vec3(1.0f, 0.6f, 0.6f),
+	};
+
+	// 각 정점에 무작위 무지개색 할당
+	std::vector<glm::vec3> vertexColor;
+	for (size_t i = 0; i < cylinderModel.vertices.size(); ++i) {
+		int colorIndex = i % rainbowColors.size();  // 무지개색 순환할 수 있도록 인덱스 조정
+		vertexColor.push_back(rainbowColors[colorIndex]);
+	}
+
+	// VAO 설정
+	glGenVertexArrays(1, &cylinderVAO);
+	glBindVertexArray(cylinderVAO);
+
+	// VBO 설정 (버텍스 데이터)
+	glGenBuffers(1, &cylinderVBO_position);
+	glBindBuffer(GL_ARRAY_BUFFER, cylinderVBO_position);
+	glBufferData(GL_ARRAY_BUFFER, cylinderModel.vertices.size() * sizeof(Vertex), &cylinderModel.vertices[0], GL_STATIC_DRAW);
+
+	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
+	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+	glEnableVertexAttribArray(pAttribute);
+
+	// VBO 설정 (색상 데이터)
+	glGenBuffers(1, &cylinderVBO_color);
+	glBindBuffer(GL_ARRAY_BUFFER, cylinderVBO_color);
+	glBufferData(GL_ARRAY_BUFFER, vertexColor.size() * sizeof(glm::vec3), &vertexColor[0], GL_STATIC_DRAW);
+
+	GLint cAttribute = glGetAttribLocation(shaderProgram, "vColor");
+	glVertexAttribPointer(cAttribute, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glEnableVertexAttribArray(cAttribute);
+
+	// EBO 설정
+	glGenBuffers(1, &cylinderEBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cylinderEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+	glBindVertexArray(0);
+}
+
 void InitOpenGL() {
 	// GLEW 초기화
 	glewExperimental = GL_TRUE;
@@ -459,12 +532,14 @@ void InitOpenGL() {
 	read_obj_file("cube.obj", &cubeModel2);
 	read_obj_file("cube.obj", &cubeModel3);
 	read_obj_file("cube.obj", &cubeModel4);
+	read_obj_file("cylinder.obj", &cylinderModel);
 
 	// 버퍼 초기화
 	InitBufferForCube1();
 	InitBufferForCube2();
 	InitBufferForCube3();
 	InitBufferForCube4();
+	InitBufferForCylinder();
 }
 
 GLvoid drawScene() {
@@ -508,12 +583,12 @@ GLvoid drawScene() {
 	H1_2 = S_1_ * T_1_2;
 
 	//로봇 전체
-	glm::mat4 R = glm::mat4(1.0f);
-	glm::mat4 T = glm::mat4(1.0f);
+	glm::mat4 R1 = glm::mat4(1.0f);
+	glm::mat4 T1 = glm::mat4(1.0f);
 	glm::mat4 Default = glm::mat4(1.0f);
-	R = glm::rotate(R, glm::radians(GLfloat(rotate)), glm::vec3(0.0, 1.0, 0.0));
-	T = glm::translate(T, glm::vec3(tx, ty - 1.0f, tz));
-	Default = T * R;
+	R1 = glm::rotate(R1, glm::radians(GLfloat(rotate)), glm::vec3(0.0, 1.0, 0.0));
+	T1 = glm::translate(T1, glm::vec3(tx, ty - 1.0f, tz));
+	Default = T1 * R1;
 	// 로봇 머리
 	glm::mat4 S_2 = glm::mat4(1.0f);
 	glm::mat4 T_2 = glm::mat4(1.0f);
@@ -578,15 +653,138 @@ GLvoid drawScene() {
 	R_5_2 = glm::rotate(R_5_2, glm::radians(GLfloat(runX)), glm::vec3(1.0, 0.0, 0.0));
 	H5_2 = Default * T_5_2 * t_5_1 * R_5_2 * t_5_2 * S_5_2;
 
+	//2
+
+		//로봇 전체
+	glm::mat4 R2 = glm::mat4(1.0f);
+	glm::mat4 T2 = glm::mat4(1.0f);
+	glm::mat4 Default2 = glm::mat4(1.0f);
+	R2 = glm::rotate(R2, glm::radians(GLfloat(rotate2[5])), glm::vec3(0.0, 1.0, 0.0));
+	T2 = glm::translate(T2, glm::vec3(tx2[5], ty2[5] - 1.0f, tz2[5]));
+	Default2 = T2 * R2;
+	// 로봇 머리
+	glm::mat4 _H2 = glm::mat4(1.0f);
+	_H2 = Default2 * T_2 * S_2;
+	//로봇 코
+	glm::mat4 _H2_ = glm::mat4(1.0f);
+	_H2_ = Default2 * T_2_ * S_2_;
+	//로봇몸
+	glm::mat4 _H3 = glm::mat4(1.0f);
+	_H3 = Default2 * T_3 * S_3;
+	//로봇 다리
+	glm::mat4 _H4_1 = glm::mat4(1.0f);
+	_H4_1 = Default2 * T_4_1 * t_4_1 * R_4_1 * t_4_2 * S_4_1;
+	glm::mat4 _H4_2 = glm::mat4(1.0f);
+	_H4_2 = Default2 * T_4_2 * t_4_1 * R_4_2 * t_4_2 * S_4_2;
+	//로봇 팔
+	glm::mat4 _H5_1 = glm::mat4(1.0f);
+	glm::mat4 _T_5_1 = glm::mat4(1.0f);
+	_T_5_1 = glm::translate(_T_5_1, glm::vec3(0.15, -0.4, 0.0));
+	_H5_1 = Default2 * _T_5_1 * t_5_1 * R_5_1 * t_5_2 * S_5_1;
+	glm::mat4 _H5_2 = glm::mat4(1.0f);
+	glm::mat4 _T_5_2 = glm::mat4(1.0f);
+	_T_5_2 = glm::translate(_T_5_2, glm::vec3(-0.15, -0.4, 0.0));
+	_H5_2 = Default2 * _T_5_2 * t_5_1 * R_5_2 * t_5_2 * S_5_2;
+
+	//3
+	//로봇 전체
+	glm::mat4 R3 = glm::mat4(1.0f);
+	glm::mat4 T3 = glm::mat4(1.0f);
+	glm::mat4 Default3 = glm::mat4(1.0f);
+	R3 = glm::rotate(R3, glm::radians(GLfloat(rotate2[10])), glm::vec3(0.0, 1.0, 0.0));
+	T3 = glm::translate(T3, glm::vec3(tx2[10], ty2[10] - 1.0f, tz2[10]));
+	Default3 = T3 * R3;
+	// 로봇 머리
+	glm::mat4 __H2 = glm::mat4(1.0f);
+	__H2 = Default3 * T_2 * S_2;
+	//로봇 코
+	glm::mat4 __H2_ = glm::mat4(1.0f);
+	__H2_ = Default3 * T_2_ * S_2_;
+	//로봇몸
+	glm::mat4 __H3 = glm::mat4(1.0f);
+	__H3 = Default3 * T_3 * S_3;
+	//로봇 다리
+	glm::mat4 __H4_1 = glm::mat4(1.0f);
+	__H4_1 = Default3 * T_4_1 * t_4_1 * R_4_1 * t_4_2 * S_4_1;
+	glm::mat4 __H4_2 = glm::mat4(1.0f);
+	__H4_2 = Default3 * T_4_2 * t_4_1 * R_4_2 * t_4_2 * S_4_2;
+	//로봇 팔
+	glm::mat4 __H5_1 = glm::mat4(1.0f);
+	glm::mat4 __T_5_1 = glm::mat4(1.0f);
+	__T_5_1 = glm::translate(__T_5_1, glm::vec3(0.10, -0.4, 0.0));
+	__H5_1 = Default3 * __T_5_1 * t_5_1 * R_5_1 * t_5_2 * S_5_1;
+	glm::mat4 __H5_2 = glm::mat4(1.0f);
+	glm::mat4 __T_5_2 = glm::mat4(1.0f);
+	__T_5_2 = glm::translate(__T_5_2, glm::vec3(-0.10, -0.4, 0.0));
+	__H5_2 = Default3 * __T_5_2 * t_5_1 * R_5_2 * t_5_2 * S_5_2;
+
 	//장애물
+	glm::mat4 S_6 = glm::mat4(1.0f);
+	glm::mat4 R_6 = glm::mat4(1.0f);
+	S_6 = glm::scale(S_6, glm::vec3(1.0, 0.02, 1.0));
+	R_6 = glm::rotate(R_6, glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
 	glm::mat4 T_6 = glm::mat4(1.0f);
-	T_6 = glm::translate(T_6, glm::vec3(-1.6, -1.6, 0.0));
-
-	glm::mat4 T_7 = glm::mat4(1.0f);
-	T_7 = glm::translate(T_7, glm::vec3(0.6, -1.6, -1.6));
-
+	T_6 = glm::translate(T_6, glm::vec3(-1.6, -1.99, -1.6));
+	glm::mat4 T_7 = glm::mat4(1.0f);						//2
+	T_7 = glm::translate(T_7, glm::vec3(0.0, block[0].ty, -1.6));
 	glm::mat4 T_8 = glm::mat4(1.0f);
-	T_8 = glm::translate(T_8, glm::vec3(+1.6, -1.6, 0.0));
+	T_8 = glm::translate(T_8, glm::vec3(1.6, -1.99, -1.6));
+	glm::mat4 T_9 = glm::mat4(1.0f);
+	T_9 = glm::translate(T_9, glm::vec3(-0.8, -1.99, -0.8));
+	glm::mat4 T_10 = glm::mat4(1.0f);
+	T_10 = glm::translate(T_10, glm::vec3(0.8, -1.99, -0.8));
+	glm::mat4 T_11 = glm::mat4(1.0f);
+	T_11 = glm::translate(T_11, glm::vec3(-1.6, -1.99, -0.0));
+	glm::mat4 T_12 = glm::mat4(1.0f);
+	T_12 = glm::translate(T_12, glm::vec3(0.0, -1.99, -0.0));
+	glm::mat4 T_13 = glm::mat4(1.0f);						//8
+	T_13 = glm::translate(T_13, glm::vec3(1.6, block[1].ty, -0.0));
+	glm::mat4 T_14 = glm::mat4(1.0f);
+	T_14 = glm::translate(T_14, glm::vec3(-0.8, -1.99, 0.8));
+	glm::mat4 T_15 = glm::mat4(1.0f);
+	T_15 = glm::translate(T_15, glm::vec3(0.8, -1.99, 0.8));
+	glm::mat4 T_16 = glm::mat4(1.0f);
+	T_16 = glm::translate(T_16, glm::vec3(-1.6, -1.99, -1.6));
+	glm::mat4 T_17 = glm::mat4(1.0f);
+	T_17 = glm::translate(T_17, glm::vec3(0.0, -1.99, -1.6));
+	glm::mat4 T_18 = glm::mat4(1.0f);
+	T_18 = glm::translate(T_18, glm::vec3(1.6, -1.99, -1.6));
+	glm::mat4 T_19 = glm::mat4(1.0f);
+	T_19 = glm::translate(T_19, glm::vec3(-1.6, -1.99, 1.6));
+	glm::mat4 T_20 = glm::mat4(1.0f);
+	T_20 = glm::translate(T_20, glm::vec3(0.0, -1.99, 1.6));
+	glm::mat4 T_21 = glm::mat4(1.0f);
+	T_21 = glm::translate(T_21, glm::vec3(1.6, -1.99, 1.6));
+
+	// U자형 장애물
+	glm::mat4 S_22 = glm::mat4(1.0f);
+	S_22 = glm::scale(S_22, glm::vec3(0.5, 1.5, 1.0));
+	glm::mat4 T_22 = glm::mat4(1.0f);
+	T_22 = glm::translate(T_22, glm::vec3(-0.8, -1.4, 0.0));
+	glm::mat4 T_23 = glm::mat4(1.0f);
+	T_23 = glm::translate(T_23, glm::vec3(0.8, -1.4, 0.0));
+	glm::mat4 S_24 = glm::mat4(1.0f);
+	S_24 = glm::scale(S_24, glm::vec3(2.0, 0.25, 1.0));
+	glm::mat4 T_24 = glm::mat4(1.0f);
+	T_24 = glm::translate(T_24, glm::vec3(0.0, -0.9, 0.0));
+
+	//원기둥 
+	glm::mat4 S_25 = glm::mat4(1.0f);
+	S_25 = glm::scale(S_25, glm::vec3(1.0, 10.0, 1.0));
+	glm::mat4 T_25 = glm::mat4(1.0f);
+	T_25 = glm::translate(T_25, glm::vec3(1.8, 0.0, -1.8));
+	glm::mat4 T_26 = glm::mat4(1.0f);
+	T_26 = glm::translate(T_26, glm::vec3(-1.8, 0.0, -1.8));
+	glm::mat4 T_27 = glm::mat4(1.0f);
+	T_27 = glm::translate(T_27, glm::vec3(-1.8, 0.0, 1.8));
+	glm::mat4 T_28 = glm::mat4(1.0f);
+	T_28 = glm::translate(T_28, glm::vec3(1.8, 0.0, 1.8));
+
+	//로봇 미니미
+	glm::mat4 S__ = glm::mat4(1.0f);
+	S__ = glm::scale(S__, glm::vec3(0.8, 0.8, 0.8));
+	glm::mat4 T__1 = glm::mat4(1.0f);
+	T__1 = glm::translate(T__1, glm::vec3(0.0, -0.1f, 0.0));
 
 	unsigned int modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H1));
@@ -605,49 +803,168 @@ GLvoid drawScene() {
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int) * 6 * 2));
 
 	glBindVertexArray(0);
-	glBindVertexArray(cubeVAO2);
 
-	//로봇
-	//얼굴
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H2));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	//코
-	glBindVertexArray(0);
-	glBindVertexArray(cubeVAO3);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H2_));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	//몸
-	glBindVertexArray(0);
-	glBindVertexArray(cubeVAO2);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H3));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	//다리
-	glBindVertexArray(0);
-	glBindVertexArray(cubeVAO3);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H4_1));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-	glBindVertexArray(cubeVAO4);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H4_2));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	//팔
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H5_1));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-	glBindVertexArray(cubeVAO3);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H5_2));
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	; glBindVertexArray(0);
+	//로봇1
+
+	{
+		//얼굴
+		glBindVertexArray(cubeVAO2);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H2));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//코
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H2_));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//몸
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO2);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H3));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//다리
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H4_1));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO4);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H4_2));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//팔
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H5_1));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(H5_2));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
+
+	//로봇2
+	{
+		glBindVertexArray(cubeVAO2);
+		//얼굴
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H2 * T__1 * T__1 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//코
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H2_ * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//몸
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO2);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H3 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//다리
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H4_1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO4);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H4_2 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//팔
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H5_1 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(_H5_2 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
+
+	//로봇3
+	{
+		glBindVertexArray(cubeVAO2);
+		//얼굴
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H2 * T__1 * T__1 * T__1 * T__1 * S__ * T__1 * T__1 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//코
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H2_ * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * S__ * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//몸
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO2);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H3 * T__1 * T__1 * S__ * T__1 * T__1 * S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//다리
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H4_1 * T__1 * S__* T__1* S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO4);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H4_2 * T__1 * S__* T__1* S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		//팔
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H5_1 * T__1 * T__1 * S__* T__1* T__1* S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+		glBindVertexArray(cubeVAO3);
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(__H5_2 * T__1 * T__1 * S__* T__1* T__1* S__));
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+	}
 
 	//장애물
 	glBindVertexArray(cubeVAO1);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_6));
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_6 * S_6 * R_6));
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_7));
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_8 * S_6 * R_6));
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_8));
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_9 * S_6 * R_6));
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_10 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_11 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_12 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_14 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_15 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_15 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_17 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_18 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_19 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_20 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_21 * S_6 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_7 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_13 * R_6));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+	//U자형 장애물
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_22 * S_22));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_23 * S_22));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_24 * S_24));
+	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
 	glBindVertexArray(0);
+	glBindVertexArray(cylinderVAO);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_25 * S_25));
+	glDrawElements(GL_TRIANGLES, 204, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_26 * S_25));
+	glDrawElements(GL_TRIANGLES, 204, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_27 * S_25));
+	glDrawElements(GL_TRIANGLES, 204, GL_UNSIGNED_INT, 0);
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(T_28 * S_25));
+	glDrawElements(GL_TRIANGLES, 204, GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
 	// 버퍼를 화면에 표시
@@ -661,6 +978,31 @@ GLvoid Reshape(int w, int h)
 
 void TimerFunction(int value)
 {
+	for (int i = 10; i >= 0; --i) {
+		tx2[i + 1] = tx2[i];
+		ty2[i + 1] = ty2[i];
+		tz2[i + 1] = tz2[i];
+	}
+	tx2[0] = tx;
+	ty2[0] = ty;
+	tz2[0] = tz;
+
+	for (int i = 10; i >= 0; --i)
+		rotate2[i + 1] = rotate2[i];
+
+	rotate2[0] = rotate;
+
+
+	for (int i = 0; i < 2; ++i) {
+		if (block[i].moving) {
+			++block[i].moveNum;
+			block[i].ty -= 0.02f;
+			if (block[i].moveNum == 10)
+				block[i].moveNum = 0;
+			block[i].moving = false;
+		}
+	}
+
 	if (rundx > 0)
 		runX += rundx + speed * 3;
 	else
@@ -677,8 +1019,11 @@ void TimerFunction(int value)
 				rotate = 0;
 
 			// 장애물과 충돌처리
-			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
-				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
+			if (!jump && ((ty < 0.8 + (block[0].ty + 1.6f) && block[0].ty > -2.0f && tx >= -0.9 && tx <= 0.9 && tz <= -1.1)
+				|| (ty < 0.8 + (block[1].ty + 1.6f) && block[1].ty > -2.0f && tx >= 1.1 && tz >= -0.5 && tz <= 0.5)
+				|| (ty <= 1.2f && tx >= -1.1f && tx <= -0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| (ty <= 1.2f && tx <= +1.1f && tx >= +0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| ((tx <= -1.5f || tx >= 1.5f) && (tz <= -1.5f || tz >= 1.5f))))
 				rotate = 0;
 			break;
 		case -90:
@@ -686,8 +1031,11 @@ void TimerFunction(int value)
 			if (tx < -1.9f)
 				rotate = 90;
 
-			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
-				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
+			if (!jump && ((ty < 0.8 + (block[0].ty + 1.6f) && block[0].ty > -2.0f && tx >= -0.9 && tx <= 0.9 && tz <= -1.1)
+				|| (ty < 0.8 + (block[1].ty + 1.6f) && block[1].ty > -2.0f && tx >= 1.1 && tz >= -0.5 && tz <= 0.5)
+				|| (ty <= 1.2f && tx >= -1.1f && tx <= -0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| (ty <= 1.2f && tx <= +1.1f && tx >= +0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| ((tx <= -1.5f || tx >= 1.5f) && (tz <= -1.5f || tz >= 1.5f))))
 				rotate = 90;
 			break;
 		case 0:
@@ -695,8 +1043,11 @@ void TimerFunction(int value)
 			if (tz > 1.9f)
 				rotate = 180;
 
-			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
-				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
+			if (!jump && ((ty < 0.8 + (block[0].ty + 1.6f) && block[0].ty > -2.0f && tx >= -0.9 && tx <= 0.9 && tz <= -1.1)
+				|| (ty < 0.8 + (block[1].ty + 1.6f) && block[1].ty > -2.0f && tx >= 1.1 && tz >= -0.5 && tz <= 0.5)
+				|| (ty <= 1.2f && tx >= -1.1f && tx <= -0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| (ty <= 1.2f && tx <= +1.1f && tx >= +0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| ((tx <= -1.5f || tx >= 1.5f) && (tz <= -1.5f || tz >= 1.5f))))
 				rotate = 180;
 			break;
 		case 90:
@@ -704,8 +1055,11 @@ void TimerFunction(int value)
 			if (tx > 1.9f)
 				rotate = -90;
 
-			if (!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
-				|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
+			if (!jump && ((ty < 0.8 + (block[0].ty + 1.6f) && block[0].ty > -2.0f && tx >= -0.9 && tx <= 0.9 && tz <= -1.1)
+				|| (ty < 0.8 + (block[1].ty + 1.6f) && block[1].ty > -2.0f && tx >= 1.1 && tz >= -0.5 && tz <= 0.5)
+				|| (ty <= 1.2f && tx >= -1.1f && tx <= -0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| (ty <= 1.2f && tx <= +1.1f && tx >= +0.5f && tz >= -0.5f && tz <= 0.5f)
+				|| ((tx <= -1.5f || tx >= 1.5f) && (tz <= -1.5f || tz >= 1.5f))))
 				rotate = -90;
 			break;
 		}
@@ -723,7 +1077,7 @@ void TimerFunction(int value)
 	if (jump) {
 		ty += 0.08f;  // 위로 점프
 		++jumpNum;
-		if (jumpNum == 15) {
+		if (jumpNum == 18) {
 			jump = false;
 			jumpNum = 0;
 		}
@@ -733,11 +1087,23 @@ void TimerFunction(int value)
 
 		if (ty <= 0.0f)
 			ty = 0.0f;
-		
-		else if(!jump && ty < 0.8 && (((tx <= -1.1f || tx >= 1.1f) && (tz >= -0.9f && tz <= 0.9f))
-			|| (tx >= 0.5f && tx <= 1.5f && tz <= -1.1f)))
-			ty = 0.8f;
+		else if (!jump && ty < 1.2) { //장애물을 밟았을 때
+			if (ty <= 0.8 + (block[0].ty + 1.6f) && tx >= -0.9 && tx <= 0.9 && tz <= -1.1) {
+				block[0].moving = true;
+				ty = 0.8 + (block[0].ty + 1.6f);
+			}
+			else if (ty <= 0.8 + (block[1].ty + 1.6f) && tx >= 1.1 && tz >= -0.5 && tz <= 0.5) {
+				block[1].moving = true;
+				ty = 0.8 + (block[1].ty + 1.6f);
+			}
+			else if (ty <= 1.2f && tx >= -1.1f && tx <= 1.1f && tz >= -0.5f && tz <= 0.5f) {
+				ty = 1.2;
+			}
+		}
 	}
+
+
+
 
 	glutPostRedisplay();
 	glutTimerFunc(60, TimerFunction, 1);
