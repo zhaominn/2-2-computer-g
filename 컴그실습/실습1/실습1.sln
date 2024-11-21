@@ -55,6 +55,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "실습 24", "실습 24\실�
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "실습 25", "실습 25\실습 25.vcxproj", "{F29642A9-F2AC-4FA3-A2E5-CDC1EE7C35C4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "실습 26", "실습 26\실습 26.vcxproj", "{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -271,6 +273,14 @@ Global
 		{F29642A9-F2AC-4FA3-A2E5-CDC1EE7C35C4}.Release|x64.Build.0 = Release|x64
 		{F29642A9-F2AC-4FA3-A2E5-CDC1EE7C35C4}.Release|x86.ActiveCfg = Release|Win32
 		{F29642A9-F2AC-4FA3-A2E5-CDC1EE7C35C4}.Release|x86.Build.0 = Release|Win32
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Debug|x64.ActiveCfg = Debug|x64
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Debug|x64.Build.0 = Debug|x64
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Debug|x86.ActiveCfg = Debug|Win32
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Debug|x86.Build.0 = Debug|Win32
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Release|x64.ActiveCfg = Release|x64
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Release|x64.Build.0 = Release|x64
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Release|x86.ActiveCfg = Release|Win32
+		{01E25BEB-1DE7-4FAB-882F-17DB9C6D673C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
