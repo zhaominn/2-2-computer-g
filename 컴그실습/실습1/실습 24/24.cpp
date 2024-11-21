@@ -434,10 +434,11 @@ GLvoid drawScene() {
 	// 변환 행렬을 셰이더로 전달
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	//------------------------------------------------------------------------------------------------
+
+	glUseProgram(shaderProgram);
 	if (m) {
-		glUseProgram(shaderProgram);
 		unsigned int lightPosLocation = glGetUniformLocation(shaderProgram, "lightPos"); //--- lightPos 값 전달: (0.0, 0.0, 5.0);
-		glUniform3f(lightPosLocation, lightX, 0.0, lightZ);
+		glUniform3f(lightPosLocation, lightX, 2.0, lightZ);
 		unsigned int lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor"); //--- lightColor 값 전달: (1.0, 1.0, 1.0) 백색
 		glUniform3f(lightColorLocation, 1.0, 1.0, 1.0);
 		//unsigned int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor"); //--- object Color값 전달: (1.0, 0.5, 0.3)의 색
@@ -535,7 +536,7 @@ GLvoid Keyboard(unsigned char key, int x, int y) {
 		lightX = cos(Lightangle) * z;
 		lightZ = sin(Lightangle) * z;
 		break;
-	case'z': 
+	case'z':
 		++z;
 		lightX = cos(Lightangle) * z;
 		lightZ = sin(Lightangle) * z;
