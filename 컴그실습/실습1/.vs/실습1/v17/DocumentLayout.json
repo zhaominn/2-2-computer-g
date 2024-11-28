@@ -24,7 +24,7 @@
               "RelativeDocumentMoniker": "\uC2E4\uC2B5 27\\27.cpp",
               "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 27\\27.cpp",
               "RelativeToolTip": "\uC2E4\uC2B5 27\\27.cpp",
-              "ViewState": "AgIAAMMBAAAAAAAAAAAAANMBAABJAAAAAAAAAA==",
+              "ViewState": "AgIAALMBAAAAAAAAAAAgwL0BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-27T01:07:24.615Z",
               "IsPinned": true,
@@ -40,10 +40,6 @@
           "DockedHeight": 112,
           "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
