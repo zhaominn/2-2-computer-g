@@ -10,11 +10,11 @@ uniform vec3 lightPos;      // 조명의 위치
 uniform vec3 lightColor;    // 조명의 색상
 uniform vec3 viewPos;       // 관찰자의 위치
 uniform vec3 objectColor;
+uniform vec3 ambientLight;
 
 void main()
 {
     // Ambient Lighting (주변광)
-    float ambientLight = 0.7;
     vec3 ambient = ambientLight * lightColor;
 
     // Diffuse Lighting (난반사광)

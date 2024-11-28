@@ -31,7 +31,6 @@ void main()
     vec3 specular = spec * lightColor;
 
     // 최종 색상 계산
-    //vec3 result = (ambient + diffuse + specular) * VertexColor;
     vec3 result = (ambient + diffuse+specular) * objectColor;
     FragColor = vec4(result, 1.0);
 }

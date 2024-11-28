@@ -7,9 +7,9 @@
 #include <gl/glew.h>
 #include<gl/freeglut.h>
 #include <gl/freeglut_ext.h>
-#include <glm/glm/glm.hpp>
-#include <glm/glm/ext.hpp>
-#include <glm/glm/gtc/matrix_transform.hpp>
+#include <gl/glm/glm/glm.hpp>
+#include <gl/glm/glm/ext.hpp>
+#include <gl/glm/glm/gtc/matrix_transform.hpp>
 //----------------------------------
 bool c = true; bool h = false; bool w = false; bool moveX = false; bool moveY = false;
 GLfloat transX = 0.0f; GLfloat transY = 0.0f;
@@ -529,7 +529,7 @@ GLvoid Keyboard(unsigned char key, int x, int y) {
 	case 'y': dy = 1; moveY = true; break;
 	case 'Y': dy = -1; moveY = true; break;
 	case 's': moveX = false; moveY = false; Xangle = 30.0f; Yangle = 30.0f; transX = 0.0f; transY = 0.0f; break;
-	case 'n': c = !c;
+	case 'n': c = !c; m = true;
 	case 'm': m = !m;
 	case'r':
 		Lightangle = (Lightangle + 1) % 360;

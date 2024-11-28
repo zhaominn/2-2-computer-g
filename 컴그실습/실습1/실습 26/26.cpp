@@ -7,9 +7,9 @@
 #include <gl/glew.h>
 #include<gl/freeglut.h>
 #include <gl/freeglut_ext.h>
-#include <glm/glm/glm.hpp>
-#include <glm/glm/ext.hpp>
-#include <glm/glm/gtc/matrix_transform.hpp>
+#include <gl/glm/glm/glm.hpp>
+#include <gl/glm/glm/ext.hpp>
+#include <gl/glm/glm/gtc/matrix_transform.hpp>
 //---------------------
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 bool isAnimating = false;
@@ -508,15 +508,20 @@ GLvoid drawScene() {
 	drawAxes();
 
 	//-----------------
-	if (LightOn) {
-		unsigned int lightPosLocation = glGetUniformLocation(shaderProgram, "lightPos"); //--- lightPos 값 전달: (0.0, 0.0, 5.0);
-		glUniform3f(lightPosLocation, lightX, 0.2, lightZ);
-		unsigned int lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor"); //--- lightColor 값 전달: (1.0, 1.0, 1.0) 백색
-		glUniform3f(lightColorLocation, lightR, lightG, lightB);
-	}
+	unsigned int lightPosLocation = glGetUniformLocation(shaderProgram, "lightPos"); //--- lightPos 값 전달: (0.0, 0.0, 5.0);
+	glUniform3f(lightPosLocation, lightX, 0.2, lightZ);
+	unsigned int lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor"); //--- lightColor 값 전달: (1.0, 1.0, 1.0) 백색
+	glUniform3f(lightColorLocation, lightR, lightG, lightB);
 	unsigned int objColorLocation = glGetUniformLocation(shaderProgram, "objectColor"); //--- object Color값 전달: (1.0, 0.5, 0.3)의 색
 	glUniform3f(objColorLocation, 1.0, 0.5, 0.7);
-
+	if (LightOn) {
+		unsigned int objColorLocation = glGetUniformLocation(shaderProgram, "ambientLight"); //--- object Color값 전달: (1.0, 0.5, 0.3)의 색
+		glUniform3f(objColorLocation, 1.0, 0.5, 0.7);
+	}
+	else {
+		unsigned int objColorLocation = glGetUniformLocation(shaderProgram, "ambientLight"); //--- object Color값 전달: (1.0, 0.5, 0.3)의 색
+		glUniform3f(objColorLocation, 0.0,0.0,0.0);
+	}
 	//------------------
 
 	glBindVertexArray(cubeVAO);
@@ -630,9 +635,9 @@ void TimerFunction(int value)
 
 
 	if (lightMove) {
-		lightangle+=3;
-		lightX = cos(lightangle*Pi/180) * 1.0f;
-		lightZ = sin(lightangle*Pi/180) * 1.0f;
+		lightangle += 3;
+		lightX = cos(lightangle * Pi / 180) * 1.0f;
+		lightZ = sin(lightangle * Pi / 180) * 1.0f;
 	}
 
 	glutPostRedisplay();
@@ -677,11 +682,11 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 		B = !B;
 		break;
 	case'm':
-		m = !m;
+		//m = !m;
 		LightOn = !LightOn;
 		break;
 	case'M':
-		M = !M;
+		//M = !M;
 		break;
 	case'f':
 		f = !f;

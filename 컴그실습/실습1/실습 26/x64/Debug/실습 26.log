@@ -1,19 +1,20 @@
 ﻿  26.cpp
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(513,41): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(518,42): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(528,42): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(528,37): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(539,42): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(539,37): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(646,18): warning C4305: '+=': 'double'에서 'T'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(646,18): warning C4305:         with
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(646,18): warning C4305:         [
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(646,18): warning C4305:             T=float
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(646,18): warning C4305:         ]
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(649,18): warning C4305: '-=': 'double'에서 'T'(으)로 잘립니다.
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(649,18): warning C4305:         with
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(649,18): warning C4305:         [
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(649,18): warning C4305:             T=float
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(649,18): warning C4305:         ]
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(732,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(512,40): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(516,42): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(519,43): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(533,42): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(533,37): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(544,42): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(544,37): warning C4305: '인수': 'double'에서 'GLfloat'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(651,18): warning C4305: '+=': 'double'에서 'T'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(651,18): warning C4305:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(651,18): warning C4305:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(651,18): warning C4305:             T=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(651,18): warning C4305:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(654,18): warning C4305: '-=': 'double'에서 'T'(으)로 잘립니다.
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(654,18): warning C4305:         with
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(654,18): warning C4305:         [
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(654,18): warning C4305:             T=float
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(654,18): warning C4305:         ]
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습 26\26.cpp(737,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
   실습 26.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습 26.exe
