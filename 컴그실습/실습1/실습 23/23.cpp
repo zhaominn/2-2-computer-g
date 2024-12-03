@@ -7,9 +7,9 @@
 #include <gl/glew.h>
 #include<gl/freeglut.h>
 #include <gl/freeglut_ext.h>
-#include <glm/glm/glm.hpp>
-#include <glm/glm/ext.hpp>
-#include <glm/glm/gtc/matrix_transform.hpp>
+#include <gl/glm/glm/glm.hpp>
+#include <gl/glm/glm/ext.hpp>
+#include <gl/glm/glm/gtc/matrix_transform.hpp>
 //---------------------
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 GLfloat t1x = 2.0f;//-0.3f;
