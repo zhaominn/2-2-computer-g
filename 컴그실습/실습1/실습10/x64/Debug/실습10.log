@@ -1,3 +1,2 @@
 ﻿  실습10.cpp
-C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습10\실습10.cpp(210,6): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-  실습10.vcxproj -> C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\x64\Debug\실습10.exe
+C:\Users\somin\OneDrive\2-2-computer-g\컴그실습\실습1\실습10\실습10.cpp(8,10): error C1083: 포함 파일을 열 수 없습니다. 'glm/glm/glm.hpp': No such file or directory

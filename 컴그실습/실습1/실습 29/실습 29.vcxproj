@@ -128,7 +128,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="29.cpp" />
+    <ClCompile Include="29.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="29_수정.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.glsl" />

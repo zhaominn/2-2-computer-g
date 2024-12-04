@@ -3,19 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\29.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|solutionrelative:\uC2E4\uC2B5 29\\29.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector||{3B902123-F8A7-4915-9F01-361F908088D0}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|solutionrelative:\uC2E4\uC2B5 29\\fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|solutionrelative:\uC2E4\uC2B5 29\\vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\29_\uC218\uC815.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0FF2CC62-7B9D-496B-9B24-4A9FD9C145E5}|\uC2E4\uC2B5 29\\\uC2E4\uC2B5 29.vcxproj|solutionrelative:\uC2E4\uC2B5 29\\29_\uC218\uC815.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -24,8 +13,8 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedHeight": 358,
-          "SelectedChildIndex": 4,
+          "DockedHeight": 266,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -33,65 +22,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "vector",
-              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.41.34120\\include\\vector",
-              "ViewState": "AgIAAE4HAAAAAAAAAAAqwF8HAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-03T16:32:05.233Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "vertex.glsl",
-              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\vertex.glsl",
-              "RelativeDocumentMoniker": "\uC2E4\uC2B5 29\\vertex.glsl",
-              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\vertex.glsl",
-              "RelativeToolTip": "\uC2E4\uC2B5 29\\vertex.glsl",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-03T14:13:07.385Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "fragment.glsl",
-              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\fragment.glsl",
-              "RelativeDocumentMoniker": "\uC2E4\uC2B5 29\\fragment.glsl",
-              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\fragment.glsl",
-              "RelativeToolTip": "\uC2E4\uC2B5 29\\fragment.glsl",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-03T13:37:01.564Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "29.cpp",
-              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\29.cpp",
-              "RelativeDocumentMoniker": "\uC2E4\uC2B5 29\\29.cpp",
-              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\29.cpp*",
-              "RelativeToolTip": "\uC2E4\uC2B5 29\\29.cpp*",
-              "ViewState": "AgIAAMEAAAAAAAAAAAAkwFQBAAAcAAAAAAAAAA==",
+              "Title": "29_\uC218\uC815.cpp",
+              "DocumentMoniker": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\29_\uC218\uC815.cpp",
+              "RelativeDocumentMoniker": "\uC2E4\uC2B5 29\\29_\uC218\uC815.cpp",
+              "ToolTip": "C:\\Users\\somin\\OneDrive\\2-2-computer-g\\\uCEF4\uADF8\uC2E4\uC2B5\\\uC2E4\uC2B51\\\uC2E4\uC2B5 29\\29_\uC218\uC815.cpp",
+              "RelativeToolTip": "\uC2E4\uC2B5 29\\29_\uC218\uC815.cpp",
+              "ViewState": "AgIAAOQAAAAAAAAAAAAAABYBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-03T06:22:18.291Z",
+              "WhenOpened": "2024-12-04T11:43:26.93Z",
               "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedHeight": 42,
+          "DockedHeight": 134,
           "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+              "Name": "ST:0:0:{68487888-204a-11d3-87eb-00c04f7971a5}"
             },
             {
               "$type": "Bookmark",

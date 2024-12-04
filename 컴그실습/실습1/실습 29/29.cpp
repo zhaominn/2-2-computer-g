@@ -74,6 +74,7 @@ void read_obj_file(const char* filename, Model* model) {
 		else if (line[0] == 'v' && line[1] == 't') {
 			glm::vec2 texCoord;
 			int result = sscanf_s(line + 3, "%f %f", &texCoord.x, &texCoord.y);
+			texCoord.y = 1 - texCoord.y;
 
 			if (result == 2) {
 				std::cout << "Read TexCoord: (" << texCoord.x<< ", " << texCoord.y << ")" << std::endl;
@@ -329,10 +330,11 @@ void InitTexture()
 	glBindTexture(GL_TEXTURE_2D, texture); //--- 텍스처 바인딩
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); //--- 현재 바인딩된 텍스처의 파라미터 설정하기
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	unsigned char* data = stbi_load("pyramid.png", &widthImage, &heightImage, &numberOfChannel, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthImage, heightImage, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); //---텍스처 이미지 정의
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	unsigned char* data = stbi_load("pyramid.bmp", &widthImage, &heightImage, &numberOfChannel, 0);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data); //---텍스처 이미지 정의
 	stbi_image_free(data);
 }
 
@@ -355,6 +357,7 @@ void InitOpenGL() {
 	make_fragmentShaders();
 	shaderProgram = make_shaderProgram();
 
+	// 텍스쳐 로드
 	InitTexture();
 
 	// OBJ 파일 로드
@@ -454,9 +457,10 @@ GLvoid drawScene() {
 		int pixelY3 = (int)((1.0f - texCoord3.y) * texHeight);
 
 		// 출력
-		std::cout << "Vertex 1 TexCoord: (" << texCoord1.x << ", " << texCoord1.y << ") => Pixel: (" << pixelX1 << ", " << pixelY1 << ")" << std::endl;
+		/*std::cout << "Vertex 1 TexCoord: (" << texCoord1.x << ", " << texCoord1.y << ") => Pixel: (" << pixelX1 << ", " << pixelY1 << ")" << std::endl;
 		std::cout << "Vertex 2 TexCoord: (" << texCoord2.x << ", " << texCoord2.y << ") => Pixel: (" << pixelX2 << ", " << pixelY2 << ")" << std::endl;
 		std::cout << "Vertex 3 TexCoord: (" << texCoord3.x << ", " << texCoord3.y << ") => Pixel: (" << pixelX3 << ", " << pixelY3 << ")" << std::endl;
+		*/
 	}
 
 	if (c) {
