@@ -14,7 +14,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "gl/stb_image.h"
 int widthImage, heightImage, numberOfChannel;
-unsigned int texture;
+unsigned int texture; unsigned int texture1;
 //---------------------
 //glm::vec3 cameraPos = glm::vec3(0.0f, 3.0f, 3.0f);
 GLfloat cameraX = 0.0f; GLfloat cameraZ = 3.0f;
@@ -24,7 +24,6 @@ GLfloat lightX = 0.0f; GLfloat lightZ = 3.0f; GLfloat lightD = 3.0f;
 int lightAngle = 90; float light = 1.0f; int cameraangle = 90;
 int level = 0; //시어핀스키 삼각형 레벨
 int startIndex = 0;
-int lightSet = 1;
 
 struct Snow {
 	GLfloat tx;
@@ -34,13 +33,7 @@ struct Snow {
 };
 
 Snow snow[50];
-/*
-for (int i = 0; i < 50; ++i) {
-	snow[i].tx = rand() % 40 / 20.0f - 1.0f;
-	snow[i].ty = 2.0f;
-	snow[i].tz = rand() % 40 / 20.0f - 1.0f;
-	snow[i].speed = rand() % 20 / 30.0f;
-}*/
+
 //----------------------------------
 #define MAX_LINE_LENGTH 1024
 #define Pi 3.141592f
@@ -63,6 +56,58 @@ typedef struct {
 } Model;
 
 Model objModel; // 모델 데이터를 저장할 전역 변수
+
+float vertexData1[] = {
+		-0.5f, -0.5f, -0.5f,	1.0, 0.0, 0.0,			1.0, 0.0,		// 뒷쪽
+		 0.5f,  0.5f, -0.5f,	1.0, 0.0, 0.0,			0.0, 1.0,
+		 0.5f, -0.5f, -0.5f,	1.0, 0.0, 0.0,			0.0, 0.0,
+
+		 0.5f,  0.5f, -0.5f,	1.0, 0.0, 0.0,			0.0, 1.0,
+		-0.5f, -0.5f, -0.5f,	1.0, 0.0, 0.0,			1.0, 1.0,
+		-0.5f,  0.5f, -0.5f,	1.0, 0.0, 0.0,			0.0, 1.0,
+
+		-0.5f,  0.5f,  0.5f,	0.0, 0.0, 1.0,			1.0, 1.0,		// 왼쪽
+		-0.5f,  0.5f, -0.5f,	0.0, 0.0, 1.0,			0.0, 1.0,
+		-0.5f, -0.5f, -0.5f,	0.0, 0.0, 1.0,			0.0, 0.0,
+
+		-0.5f, -0.5f, -0.5f,	0.0, 0.0, 1.0,			0.0, 0.0,
+		-0.5f, -0.5f,  0.5f,	0.0, 0.0, 1.0,			1.0, 0.0,
+		-0.5f,  0.5f,  0.5f,	0.0, 0.0, 1.0,			0.0, 1.0,
+
+		 0.5f,  0.5f,  0.5f,	1.0, 1.0, 0.0,			0.0, 1.0, // 오른쪽
+		 0.5f, -0.5f, -0.5f,	1.0, 1.0, 0.0,			1.0, 0.0,
+		 0.5f,  0.5f, -0.5f,	1.0, 1.0, 0.0,			0.0, 1.0,
+
+		 0.5f, -0.5f, -0.5f,	1.0, 1.0, 0.0,			1.0, 0.0,
+		 0.5f,  0.5f,  0.5f,	1.0, 1.0, 0.0,			0.0, 1.0,
+		 0.5f, -0.5f,  0.5f,	1.0, 1.0, 0.0,			0.0, 0.0,
+
+
+		-0.5f, -0.5f, -0.5f,	1.0, 0.0, 1.0,			0.0, 0.0,	// 아래쪽
+		 0.5f, -0.5f, -0.5f,	1.0, 0.0, 1.0,			1.0, 0.0,
+		 0.5f, -0.5f,  0.5f,	1.0, 0.0, 1.0,			0.0, 1.0,
+
+		 0.5f, -0.5f,  0.5f,	1.0, 0.0, 1.0,			0.0, 1.0,
+		-0.5f, -0.5f,  0.5f,	1.0, 0.0, 1.0,			0.0, 1.0,
+		-0.5f, -0.5f, -0.5f,	1.0, 0.0, 1.0,			0.0, 0.0,
+
+
+		-0.5f,  0.5f, -0.5f,	0.0, 1.0, 1.0,			0.0, 1.0,	// 위쪽
+		 0.5f,  0.5f,  0.5f,	0.0, 1.0, 1.0,			1.0, 0.0,
+		 0.5f,  0.5f, -0.5f,	0.0, 1.0, 1.0,			1.0, 1.0,
+
+		 0.5f,  0.5f,  0.5f,	0.0, 1.0, 1.0,			1.0, 0.0,
+		-0.5f,  0.5f, -0.5f,	0.0, 1.0, 1.0,			0.0, 1.0,
+		-0.5f,  0.5f,  0.5f,	0.0, 1.0, 1.0,			0.0, 0.0,
+
+		-0.5f, -0.5f,  0.5f,	0.0, 1.0, 0.0,			0.0, 0.0,	// 앞쪽
+		 0.5f, -0.5f,  0.5f,	0.0, 1.0, 0.0,			1.0, 0.0,
+		 0.5f,  0.5f,  0.5f,	0.0, 1.0, 0.0,			1.0, 1.0,
+
+		 0.5f,  0.5f,  0.5f,	0.0, 1.0, 0.0,			1.0, 1.0,
+		-0.5f,  0.5f,  0.5f,	0.0, 1.0, 0.0,			0.0, 1.0,
+		-0.5f, -0.5f,  0.5f,	0.0, 1.0, 0.0,			0.0, 0.0
+};
 
 // OBJ 파일에서 버텍스와 면을 읽어오는 함수
 void read_obj_file(const char* filename, Model* model) {
@@ -229,27 +274,27 @@ GLuint make_shaderProgram() {
 	return shaderID;
 }
 
-GLuint cubeVAO, cubeVBO_position, cubeVBO_color, cubeEBO;
-Model cubeModel;
+GLuint cube1VAO, cube1VBO_position, cube1VBO_color, cube1EBO;
+Model cube1Model;
 
-void InitBufferForCube() {
+void InitBufferForCube1() {
 	// 인덱스 데이터
 	std::vector<unsigned int> indices;
 
-	for (const auto& face : cubeModel.faces) {
+	for (const auto& face : cube1Model.faces) {
 		indices.push_back(face.v1);
 		indices.push_back(face.v2);
 		indices.push_back(face.v3);
 	}
 
 	// VAO 설정
-	glGenVertexArrays(1, &cubeVAO);
-	glBindVertexArray(cubeVAO);
+	glGenVertexArrays(1, &cube1VAO);
+	glBindVertexArray(cube1VAO);
 
 	// VBO 설정 (버텍스 데이터)
-	glGenBuffers(1, &cubeVBO_position);
-	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position);
-	glBufferData(GL_ARRAY_BUFFER, cubeModel.vertices.size() * sizeof(Vertex), &cubeModel.vertices[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &cube1VBO_position);
+	glBindBuffer(GL_ARRAY_BUFFER, cube1VBO_position);
+	glBufferData(GL_ARRAY_BUFFER, cube1Model.vertices.size() * sizeof(Vertex), &cube1Model.vertices[0], GL_STATIC_DRAW);
 
 	GLint pAttribute = glGetAttribLocation(shaderProgram, "vPos");
 	glVertexAttribPointer(pAttribute, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, x));
@@ -270,9 +315,47 @@ void InitBufferForCube() {
 	glEnableVertexAttribArray(cAttribute);
 
 	// EBO 설정
-	glGenBuffers(1, &cubeEBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cubeEBO);
+	glGenBuffers(1, &cube1EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, cube1EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+
+	glBindVertexArray(0);
+}
+
+GLuint cubeVAO, cubeVBO_position, cubeEBO;
+Model cubeModel;
+
+void InitBufferForCube() {
+	// 인덱스 데이터
+	std::vector<unsigned int> indices;
+
+	for (const auto& face : cubeModel.faces) {
+		indices.push_back(face.v1);
+		indices.push_back(face.v2);
+		indices.push_back(face.v3);
+	}
+
+	// VAO 설정
+	glGenVertexArrays(1, &cubeVAO);
+	glBindVertexArray(cubeVAO);
+
+	// VBO 설정 (버텍스 데이터)
+	glGenBuffers(1, &cubeVBO_position);
+	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position);
+
+
+	//--- 수정 위의 vertexData 에 저장된 값을 버퍼에 보내도록 함
+
+	glGenBuffers(1, &cubeVBO_position);
+	glBindBuffer(GL_ARRAY_BUFFER, cubeVBO_position);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData1), vertexData1, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);			//--- 위치 속성
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(4 * sizeof(float)));	//--- 노말값 속성
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(7 * sizeof(float)));	//--- 텍스처 좌표 속성
+	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
 }
@@ -381,9 +464,22 @@ void InitTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	unsigned char* data = stbi_load("pyramid.bmp", &widthImage, &heightImage, &numberOfChannel, 0);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, widthImage, heightImage, 0, GL_RGB, GL_UNSIGNED_BYTE, data); //---텍스처 이미지 정의
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, widthImage, heightImage, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	stbi_image_free(data);
+
+
+
+	stbi_set_flip_vertically_on_load(true);
+	glGenTextures(1, &texture1); //--- 텍스처 생성
+	glBindTexture(GL_TEXTURE_2D, texture1); //--- 텍스처 바인딩
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); //--- 현재 바인딩된 텍스처의 파라미터 설정하기
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	unsigned char* data1 = stbi_load("c.png", &widthImage, &heightImage, &numberOfChannel, 0);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, widthImage, heightImage, 0, GL_RGBA, GL_UNSIGNED_BYTE, data1);
+	stbi_image_free(data1);
 }
 
 void InitOpenGL() {
@@ -405,61 +501,19 @@ void InitOpenGL() {
 	// OBJ 파일 로드
 	read_obj_file("pyramid.obj", &pyramidModel);
 	read_obj_file("sphere.obj", &sphereModel);
+	read_obj_file("cube.obj", &cube1Model);
 	read_obj_file("cube.obj", &cubeModel);
 
 	// 버퍼 초기화
 	InitBufferForPyramid();
 	InitBufferForSphere();
+	InitBufferForCube1();
 	InitBufferForCube();
 }
 
 std::vector<glm::mat4> triangles;
 
 std::vector<glm::vec3> triangles_color;
-
-void make_triangle(glm::mat4 triangle, int Level) {
-	if (Level == level)
-		return;
-
-	glm::mat4 temp1 = triangle;
-	temp1 = glm::scale(temp1, glm::vec3(0.5, 0.5, 0.5));
-	temp1 = glm::translate(temp1, glm::vec3(0.0, 0.401, 0.0));
-	triangles.push_back(temp1);
-
-	glm::mat4 temp2 = triangle;
-	temp2 = glm::scale(temp2, glm::vec3(0.5, 0.5, 0.5));
-	temp2 = glm::translate(temp2, glm::vec3(-0.401, -0.401, 0.401));
-	triangles.push_back(temp2);
-
-	glm::mat4 temp3 = triangle;
-	temp3 = glm::scale(temp3, glm::vec3(0.5, 0.5, 0.5));
-	temp3 = glm::translate(temp3, glm::vec3(-0.401, -0.401, -0.401));
-	triangles.push_back(temp3);
-
-	glm::mat4 temp4 = triangle;
-	temp4 = glm::scale(temp4, glm::vec3(0.5, 0.5, 0.5));
-	temp4 = glm::translate(temp4, glm::vec3(0.401, -0.401, -0.401));
-	triangles.push_back(temp4);
-
-	glm::mat4 temp5 = triangle;
-	temp5 = glm::scale(temp5, glm::vec3(0.5, 0.5, 0.5));
-	temp5 = glm::translate(temp5, glm::vec3(0.401, -0.401, 0.401));
-	triangles.push_back(temp5);
-
-	glm::vec3 temp_color;
-	temp_color = glm::vec3((Level * 0.1f), (Level * 0.1f), (Level * 0.1f));
-	triangles_color.push_back(temp_color);
-	triangles_color.push_back(temp_color);
-	triangles_color.push_back(temp_color);
-	triangles_color.push_back(temp_color);
-	triangles_color.push_back(temp_color);
-
-	make_triangle(temp1, Level + 1);
-	make_triangle(temp2, Level + 1);
-	make_triangle(temp3, Level + 1);
-	make_triangle(temp4, Level + 1);
-	make_triangle(temp5, Level + 1);
-}
 
 GLvoid drawScene() {
 	// 컬러 버퍼와 깊이 버퍼를 지웁니다
@@ -500,12 +554,6 @@ GLvoid drawScene() {
 		snow_model[i] = glm::scale(snow_model[i], glm::vec3(0.05, 0.05, 0.05));
 	}
 
-	if (triangles.size() != 0)
-		triangles.clear();
-
-	if (triangles_color.size() != 0)
-		triangles_color.clear();
-
 	//기본 피라미드
 	glm::mat4 temp = glm::mat4(1.0f);
 	temp = glm::translate(temp, glm::vec3(0.0, 0.8, 0.0));
@@ -513,20 +561,38 @@ GLvoid drawScene() {
 	triangles.push_back(temp);
 	triangles_color.push_back(glm::vec3(1.0, 0.7, 0.8));
 
-	make_triangle(triangles[0], 0);
+
+	// 반투명 육면체
+	glm::mat4 c1 = glm::mat4(1.0f);
+	c1 = glm::translate(c1, glm::vec3(1.5, 0.4, -1.0));
+	c1 = glm::scale(c1, glm::vec3(0.5, 1.0, 0.5));
+
+	glm::mat4 c2 = glm::mat4(1.0f);
+	c2 = glm::translate(c2, glm::vec3(0.7, 0.5, -1.0));
+	c2 = glm::scale(c2, glm::vec3(0.7, 1.0, 0.7));
+
+	glm::mat4 c3 = glm::mat4(1.0f);
+	c3 = glm::translate(c3, glm::vec3(0.0, 0.5, -1.0));
+	c3 = glm::scale(c3, glm::vec3(0.3, 1.2, 0.3));
+
+	glm::mat4 c4 = glm::mat4(1.0f);
+	c4 = glm::translate(c4, glm::vec3(-0.7, 0.2, -1.0));
+	c4 = glm::scale(c4, glm::vec3(0.7, 1.0, 0.7));
+
+	glm::mat4 c5 = glm::mat4(1.0f);
+	c5 = glm::translate(c5, glm::vec3(-1.5, 0.6, -1.0));
+	c5 = glm::scale(c5, glm::vec3(0.5, 1.2, 0.5));
 
 	//-----------------
 	unsigned int lightPosLocation = glGetUniformLocation(shaderProgram, "lightPos"); //--- lightPos 값 전달: (0.0, 0.0, 5.0);
 	glUniform3f(lightPosLocation, lightX, 1.0, lightZ);
 	unsigned int lightColorLocation = glGetUniformLocation(shaderProgram, "lightColor"); //--- lightColor 값 전달: (1.0, 1.0, 1.0) 백색
-	glUniform3f(lightColorLocation, lightSet, lightSet, lightSet);
+	glUniform3f(lightColorLocation, 0.8, 0.8, 0.8);
 	unsigned int ablColorLocation = glGetUniformLocation(shaderProgram, "ambientLight"); //--- ambient Color값 전달: (1.0, 0.5, 0.3)의 색
 	glUniform3f(ablColorLocation, light, light, light);
 	//------------------
 	unsigned int modelLocation = glGetUniformLocation(shaderProgram, "modelTransform");
-
-
-	glBindVertexArray(cubeVAO);
+	glBindVertexArray(cube1VAO);
 	//바닥
 	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(floor));
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -555,6 +621,36 @@ GLvoid drawScene() {
 	}
 	glBindVertexArray(0);
 
+
+	//---------투명한 육면체 그리기~~
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glBindVertexArray(cubeVAO);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(c1));
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(c2));
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(c3));
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(c4));
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(c5));
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+
+	glBindVertexArray(0);
+	glDisable(GL_BLEND);
+
 	// 버퍼를 화면에 표시
 	glutSwapBuffers();
 }
@@ -566,15 +662,6 @@ GLvoid Reshape(int w, int h)
 
 void TimerFunction(int value)
 {
-	if (s) {
-		for (int i = 0; i < 50; ++i) {
-			snow[i].ty -= snow[i].speed;
-
-			if (snow[i].ty <= 0.0f)
-				snow[i].ty = 6.0f;
-		}
-	}
-
 	if (lightRotate) {
 		lightAngle += 2;
 		lightX = lightD * cos(lightAngle * Pi / 180);
@@ -588,46 +675,15 @@ void TimerFunction(int value)
 GLvoid Keyboard(unsigned char key, int x, int y)
 {
 	switch (key) {
-	case'0':
-		level = 0;
-		startIndex = 0;
-		break;
-	case'1':
-		level = 1;
-		startIndex = 1;
-		break;
-	case'2':
-		level = 2;
-		startIndex = 6;
-		break;
-	case'3':
-		level = 3;
-		startIndex = 6; //31;
-		break;
-	case'4':
-		level = 4;
-		startIndex = 6; //156;
-		break;
-	case'5':
-		level = 5;
-		startIndex = 6; //681;
-		break;
 	case's':
 		s = !s;
 		break;
-	case'r':
-		lightRotate = !lightRotate;
-		break;
-	case'n':
-		lightD -= 0.1f;
-		lightX = lightD * cos(lightAngle * Pi / 180);
-		lightZ = lightD * sin(lightAngle * Pi / 180);
-		break;
 	case'm':
-		if (lightSet == 1)
-			lightSet = 0;
+		if (int(light) == 1)
+			light = 0.0f;
 		else
-			lightSet = 1;
+			light = 1.0f;
+		break;
 	case'f':
 		lightD += 0.1f;
 		lightX = lightD * cos(lightAngle * Pi / 180);
@@ -637,12 +693,6 @@ GLvoid Keyboard(unsigned char key, int x, int y)
 		cameraangle += 1;
 		cameraX = 3.0f * cos(cameraangle * Pi / 180);
 		cameraZ = 3.0f * sin(cameraangle * Pi / 180);
-		break;
-	case'+':
-		light += 0.1f;
-		break;
-	case'-':
-		light -= 0.1f;
 		break;
 	case 'q':
 		glutLeaveMainLoop();

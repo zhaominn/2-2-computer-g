@@ -9,13 +9,15 @@ out vec4 FragColor;
 uniform vec3 lightPos;      // 조명의 위치
 uniform vec3 lightColor;    // 조명의 색상
 uniform vec3 viewPos;       // 관찰자의 위치
+uniform vec3 ambientLight;
+
 
 uniform sampler2D outTexture; //--- 텍스처 샘플러
+
 
 void main()
 {
     // Ambient Lighting (주변광)
-    float ambientLight = 0.5;
     vec3 ambient = ambientLight * lightColor;
 
     // Diffuse Lighting (난반사광)
@@ -35,8 +37,8 @@ void main()
     vec3 result = (ambient + diffuse+specular);
     
     // 텍스처 적용
-    FragColor = vec4 (result, 1.0f);
+    FragColor = vec4 (result, 0.7f);
     FragColor = texture(outTexture, TexCoord) * FragColor;
-    //FragColor = texture(outTexture, TexCoord);
-}
+    
+  }
 
